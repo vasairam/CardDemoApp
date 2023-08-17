@@ -109,14 +109,13 @@ public class UserService implements UserDetailsService {
 	public User updateUser(User user) {
 
 		User updatedUser=findByEmail(user.getUsername());
-
 		updatedUser.setFirstName(user.getFirstName());
 		updatedUser.setLastName(user.getLastName());
-		updatedUser.setEmail(user.getEmail());
-		
+		updatedUser.setEmail(user.getEmail());		
 		updatedUser.setRole(user.getRole());
-		
+		updatedUser.setPassword(customPasswordEncoder.encode(user.getPassword()));
 		userRepository.save(updatedUser);
+		
 		return updatedUser;
 	}
 	
