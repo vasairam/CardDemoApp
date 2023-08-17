@@ -1,0 +1,134 @@
+.app-brand-logo.demo{
+    height: 60px;
+    width: 60px;
+}
+
+
+.apps-link { 
+    width:25%;
+    text-align:center;
+    background:transparent;
+    border:0;
+    display:block;
+    float:left; 
+    padding:4px; 
+    padding-bottom:0;
+    margin-bottom:10px;
+}
+
+.apps-link .inner {
+    position:relative; 
+    padding-top:10px; 
+    padding-bottom:25px;  
+    height: 94px; 
+    display: block;
+    box-shadow: 0 0 1px #d2d2d2, 1px 1px 3px rgba(0,0,0,.08);
+}
+.apps-link a.inner{
+    color: var(--bs-accordion-active-color);
+}
+
+.apps-link .inner:not(.chosen) {
+    background-color:#fff;
+}
+
+/* .apps-link.active .apps-icon,
+.apps-link:hover .apps-icon {
+    opacity:0;
+} */
+/* 
+.apps-link.active .apps-icon .material-icons,
+.apps-link:hover .apps-icon .material-icons {
+    opacity:0;
+} */
+
+/* .apps-link.active span,
+.apps-link:hover span {
+    opacity:0;
+} */
+
+.apps-link span { 
+    display:block; 
+    line-height: 1.16;
+    margin: 7px 0;
+    font-size:12.5px; 
+    /* max-width:135px; */
+    white-space:nowrap;
+    text-overflow:ellipsis;
+}
+
+.apps-icon { 
+    display:block;
+    background-color:#fff; 
+    border-radius:50%; 
+    width:54px; height:54px; 
+    margin:0 auto; 
+    position:relative; 
+}
+
+   .apps-icon .material-icons { 
+    display:block; 
+    text-align:center; 
+    line-height:52px; 
+    font-size:30px; 
+    color:#fff; }
+
+.websites .apps-icon .material-icons {
+    font-family:sans-serif !important;
+    text-align:center; color:#fff; font-style:normal; font-weight:600; line-height:52px; font-size: 13px; }
+
+.bookkeeping .apps-icon, .bookkeeping .chosen { background-color:#73bd0b; }
+.advancepayments .apps-icon, .advancepayments .chosen { background-color:#582f74; }
+.appointments .apps-icon, .appointments .chosen { background-color:#e05896; }
+.bids .apps-icon, .bids .chosen { background-color:#c31c7c; }
+.billofsale .apps-icon, .billofsale .chosen { background-color:#ed697d; }
+.booking .apps-icon, .booking .chosen { background-color:#004f2b; } 
+.billofmaterials .apps-icon, .billofmaterials .chosen { background-color:#154d90; }
+.businessproposals .apps-icon, .businessproposals .chosen { background-color:#cba400; }
+.checklists .apps-icon, .checklists .chosen { background-color:#a5cb2e; } 
+.costbook .apps-icon, .costbook .chosen { background-color:#94ae26; } 
+.creditnotes .apps-icon, .creditnotes .chosen { background-color:#b96abb; }
+.debitnotes .apps-icon, .debitnotes .chosen { background-color:#6976BA; }
+
+    .creditnotes .apps-icon:after, 
+    .debitnotes .apps-icon:after { 
+        position: absolute;
+        left: 50%; top: 50%;
+        border-radius: 3px;
+        font-size: 14px; line-height: 1; color: #fff;
+        padding: 1px; margin: 1px 0 0 1px;
+        font-family: "Material Icons";
+    }
+    .creditnotes .apps-icon:after { content:"\e909"; background-color:#b96abb; }
+    .debitnotes .apps-icon:after { content:"\e146"; background-color:#6976BA; }
+    .creditnotes .chosen .apps-icon:after { background-color:#c27cc3; }
+    .debitnotes .chosen .apps-icon:after { background-color:#7b87c2; }
+
+.depositrequests .apps-icon, .depositrequests .chosen { background-color:#b62969; }
+.e-signatures .apps-icon, .e-signatures .chosen { background-color:#8045af; }
+.documents .apps-icon, .documents .chosen { background-color:#f29b11; } 
+.domains .apps-icon, .domains .chosen { background-color:#0fbabe; }
+.estimates .apps-icon, .estimates .chosen { background-color:#12315e; }
+.files .apps-icon, .files .chosen { background-color:#00707a; }
+.inventory .apps-icon, .inventory .chosen { background-color:#fc8f3d; }
+.invoices .apps-icon, .invoices .chosen { background-color:#1578af; }
+.jobestimator .apps-icon, .jobestimator .chosen { background-color:#019d95; } 
+   .letters .apps-icon, .letters .chosen { background-color:#d2d618; } 
+.orderconfirmations .apps-icon, .orderconfirmations .chosen { background-color:#b52b24; } 
+.packingslips .apps-icon, .packingslips .chosen { background-color:#5f134f; }
+.pricelist .apps-icon, .pricelist .chosen { background-color:#26ad5f; } 
+.proposals .apps-icon, .proposals .chosen { background-color:#fc8f3d; }
+.purchaseorders .apps-icon, .purchaseorders .chosen { background-color:#a71c55; }
+.quotes .apps-icon, .quotes .chosen { background-color:#ff6d68; }
+.retainers .apps-icon, .retainers .chosen { background-color:#805ab4; }
+.receipts .apps-icon, .receipts .chosen { background-color:#83236a; }  
+.recurringinvoices .apps-icon, .recurringinvoices .chosen { background-color:#1ab0d8; } 
+.remittanceadvice .apps-icon, .remittanceadvice .chosen { background-color:#5a9a20; }
+.reservations .apps-icon, .reservations .chosen { background-color:#128450; } 
+.salesorders .apps-icon, .salesorders .chosen { background-color:#d25300; }
+.spreadsheets .apps-icon, .spreadsheets .chosen { background-color:#dd3166; } 
+.subscriptions .apps-icon, .subscriptions .chosen { background-color:#3397da; } 
+.timesheets .apps-icon, .timesheets .chosen { background-color:#f0c30e; }
+.todo .apps-icon, .todo .chosen { background-color:#4ad382; } 
+.workorders .apps-icon, .workorders .chosen { background-color:#3f78cb; }
+.websites .apps-icon, .websites .chosen { background-color:#cc2e38; }
