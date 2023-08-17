@@ -302,7 +302,7 @@ com.cg.CardDemoApplication.model
                   <div class="card">
                    
                     <div class="card-body">
-                      <form id="updateUser" class="row g-3"  action="updateUserPOST" method ="POST">
+                      <form id="updateUser" class="row g-3"  action="#">
                         <!-- Account Details -->
 
                         <div class="col-12">
@@ -351,10 +351,10 @@ com.cg.CardDemoApplication.model
                           <label class="form-label" >Role</label>
                           <div class="input-group">
                             <label class="input-group-text" for="inputGroupSelect01">Role</label>
-                            <select class="form-select" id="role">
+                            <select class="form-select" id="inputGroupSelect01" name="role">
                               <option selected>Choose...</option>
-                              <option value="1">Admin</option>
-                              <option value="2">User</option>
+                              <option value="Admin">Admin</option>
+                              <option value="user">User</option>
                              </select>
                           </div>
                         </div>
@@ -364,9 +364,9 @@ com.cg.CardDemoApplication.model
                           <input
                             type="password"
                             class="form-control"
-                            id="password"
+                            id="basic-default-password12"
                             placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                            aria-describedby="basic-default-password2" />
+                            aria-describedby="basic-default-password2" name= "password" />
                           <span id="basic-default-password2" class="input-group-text cursor-pointer"
                             ><i class="ti ti-eye-off"></i
                           ></span>
