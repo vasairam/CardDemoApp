@@ -53,7 +53,7 @@ public class LoginController {
 		if(user.getRole().equalsIgnoreCase("admin")) {
 			return "redirect:/addUser";
 		}else {
-			return "redirect:/user-dashboard";	
+			return "user-dashboard";	
 		}
 	}
 	
