@@ -11,6 +11,9 @@ public class Customer
 	@Column(name = "customerId")
     private int customerId;
 	
+	@Column(name = "customerNumber")
+    private String customerNumber;
+	
 	@Column(name = "firstName")
     private String firstName;
     
@@ -33,7 +36,7 @@ public class Customer
     private String state;
     
     @Column(name="country")
-    private boolean country;
+    private String country;
     
     @Column(name = "zip")
     private int zip;
@@ -135,12 +138,14 @@ public class Customer
 		this.state = state;
 	}
 
-	public boolean isCountry() {
-		return country;
-	}
-
-	public void setCountry(boolean country) {
+	public void setCountry(String country) {
 		this.country = country;
+	}
+	
+	
+
+	public String getCountry() {
+		return country;
 	}
 
 	public int getZip() {
@@ -239,16 +244,26 @@ public class Customer
 		this.updatedDate = updatedDate;
 	}
 
+	public String getCustomerNumber() {
+		return customerNumber;
+	}
+
+	public void setCustomerNumber(String customerNumber) {
+		this.customerNumber = customerNumber;
+	}
+
 	@Override
 	public String toString() {
-		return "customer [customerId=" + customerId + ", firstName=" + firstName + ", middleName=" + middleName
-				+ ", lastName=" + lastName + ", ssn=" + ssn + ", address=" + address + ", city=" + city + ", state="
-				+ state + ", country=" + country + ", zip=" + zip + ", dob=" + dob + ", ficoScore=" + ficoScore
-				+ ", Phone1=" + Phone1 + ", Phone2=" + Phone2 + ", govtIssuedIdRef=" + govtIssuedIdRef
-				+ ", eftAccountId=" + eftAccountId + ", isPrimaryCardHolder=" + isPrimaryCardHolder + ", createdBy="
-				+ createdBy + ", createdDate=" + createdDate + ", updatedBy=" + updatedBy + ", updatedDate="
-				+ updatedDate + "]";
+		return "Customer [customerId=" + customerId + ", customerNumber=" + customerNumber + ", firstName=" + firstName
+				+ ", middleName=" + middleName + ", lastName=" + lastName + ", ssn=" + ssn + ", address=" + address
+				+ ", city=" + city + ", state=" + state + ", country=" + country + ", zip=" + zip + ", dob=" + dob
+				+ ", ficoScore=" + ficoScore + ", Phone1=" + Phone1 + ", Phone2=" + Phone2 + ", govtIssuedIdRef="
+				+ govtIssuedIdRef + ", eftAccountId=" + eftAccountId + ", isPrimaryCardHolder=" + isPrimaryCardHolder
+				+ ", createdBy=" + createdBy + ", createdDate=" + createdDate + ", updatedBy=" + updatedBy
+				+ ", updatedDate=" + updatedDate + "]";
 	}
+
+	
     
     
     

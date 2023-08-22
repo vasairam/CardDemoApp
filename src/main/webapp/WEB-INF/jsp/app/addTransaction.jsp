@@ -17,7 +17,7 @@ com.cg.CardDemoApplication.model
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>View Credit Card | CARD DEMO </title>
+    <title>Add Transaction | Card Demo </title>
 
     <meta name="description" content="" />
 
@@ -230,53 +230,52 @@ com.cg.CardDemoApplication.model
                 </li>
                 <!--/ Language -->
 
-                
 
-                <!-- User -->
-                <li class="nav-item navbar-dropdown dropdown-user dropdown">
-                  <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                    <div class="avatar avatar-online">
-                      <img src="../assets/img/avatars/1.png" alt class="h-auto rounded-circle" />
-                    </div>
-                  </a>
-                  <ul class="dropdown-menu dropdown-menu-end">
-                    <li>
-                      <a class="dropdown-item" href="pages-account-settings-account.html">
-                        <div class="d-flex">
-                          <div class="flex-shrink-0 me-3">
-                            <div class="avatar avatar-online">
-                              <img src="../assets/img/avatars/1.png" alt class="h-auto rounded-circle" />
-                            </div>
-                          </div>
-                          <div class="flex-grow-1">
-                          <%  User sessionUser = (User) session.getAttribute("loggedInUser");
-                          		String userFirstName = sessionUser.getFirstName();
-                              String userLastName = sessionUser.getLastName();
-                          %>
-                            <span class="fw-semibold d-block"><%=userFirstName%> <%=userLastName%></span>
-                            <small class="text-muted"><%=sessionUser.getRole()%></small>
+               <!-- User -->
+               <li class="nav-item navbar-dropdown dropdown-user dropdown">
+                <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
+                  <div class="avatar avatar-online">
+                    <img src="../assets/img/avatars/1.png" alt class="h-auto rounded-circle" />
+                  </div>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end">
+                  <li>
+                    <a class="dropdown-item" href="pages-account-settings-account.html">
+                      <div class="d-flex">
+                        <div class="flex-shrink-0 me-3">
+                          <div class="avatar avatar-online">
+                            <img src="../assets/img/avatars/1.png" alt class="h-auto rounded-circle" />
                           </div>
                         </div>
-                      </a>
-                    </li>
-                    <li>
-                      <div class="dropdown-divider"></div>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="pages-profile-user.html">
-                        <i class="ti ti-user-check me-2 ti-sm"></i>
-                        <span class="align-middle">My Profile</span>
-                      </a>
-                    </li>
-                                        <li>
-                      <a class="dropdown-item" href="/login">
-                        <i class="ti ti-logout me-2 ti-sm"></i>
-                        <span class="align-middle">Log Out</span>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-                <!--/ User -->
+                        <div class="flex-grow-1">
+                        <%  User sessionUser = (User) session.getAttribute("loggedInUser");
+                            String userFirstName = sessionUser.getFirstName();
+                            String userLastName = sessionUser.getLastName();
+                        %>
+                          <span class="fw-semibold d-block"><%=userFirstName%> <%=userLastName%></span>
+                          <small class="text-muted"><%=sessionUser.getRole()%></small>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                  <li>
+                    <div class="dropdown-divider"></div>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="pages-profile-user.html">
+                      <i class="ti ti-user-check me-2 ti-sm"></i>
+                      <span class="align-middle">My Profile</span>
+                    </a>
+                  </li>
+                                      <li>
+                    <a class="dropdown-item" href="/login">
+                      <i class="ti ti-logout me-2 ti-sm"></i>
+                      <span class="align-middle">Log Out</span>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <!--/ User -->
               </ul>
             </div>
 
@@ -294,92 +293,182 @@ com.cg.CardDemoApplication.model
 
           <!-- / Navbar -->
 		  <div class="content-wrapper">
+		  
+
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-			<h4 class="fw-bold "><span class="text-muted fw-light">Credit Card/</span> Update Credit Card </h4>
+		    <h4 class="fw-bold "><span class="text-muted fw-light">Transaction /</span> Add</h4>
               <div class="row">
-			  
                 <!-- Website Analytics -->
                 <div class="col-12">
                   <div class="card">
                    
+            </li>
                     <div class="card-body">
                       <form id="formValidationExamples" class="row g-3">
                         <!-- Account Details -->
 
                         <div class="col-12">
-                          <h6 class="fw-semibold">1. Card Details</h6>
+                          <h6 class="fw-semibold">1. Transaction Details</h6>
                           <hr class="mt-0" />
                         </div>
+
+                        
                         <div class="col-md-6">
-                        <div class="input-group input-group-merge">
-                        <span class="input-group-text" id="basic-addon-search31"><i class="ti ti-search"></i></span>
-                        <input
-                          type="text"
-                          class="form-control"
-                          placeholder="Account Number.."
-                          aria-label="Account Number..."
-                          aria-describedby="basic-addon-search31" />
-                      </div>
-					  </div>
-					  <div class="col-md-6">
-                        <div class="input-group input-group-merge">
-                        <span class="input-group-text" id="basic-addon-search31"><i class="ti ti-search"></i></span>
-                        <input
-                          type="text"
-                          class="form-control"
-                          placeholder="Credit Card Number.."
-                          aria-label="Credit Card Number..."
-                          aria-describedby="basic-addon-search31" />
-                      </div>
-					  </div>
-					  
-                        <div class="col-md-4">
-                          <label class="form-label" >Name On the Card</label>
+                          <label class="form-label" >Account Number</label>
                           <input
                             class="form-control"
                             type="text"
-                            id="nameonthecard"
-                            name="nameOnTheCard"
-                            placeholder="Naveen "
+                            id="accountNumber"
+                            name="accountNumber"
+                            placeholder="12345678"
+							
+							/> 
+							
+                        </div> 
+						<div class="col-md-5">
+						
+                          <label class="form-label" >  / Card Number</label>
+                          <input
+                            class="form-control"
+                            type="text"
+                            id="cardNumber"
+                            name="cardNumber"
+                            placeholder="123245415"
+							
+							/>
+                        </div>
+                        <div class="col-md-4">
+                          <label class="form-label" >TYPE CD</label>
+                         <input
+                            class="form-control"
+                            type="text"
+                            id="typeCd"
+                            name="typeCd"
+                            placeholder="ASC"
 							
 							/>
                         </div>
 
                         <div class="col-md-4">
                           
-                            <label class="form-label" >Expiry Date</label>
+                            <label class="form-label" >Category CD</label>
                           <input
                             class="form-control"
-                            type="datetime"
-                            id="expirydate"
-                            name="expiryDate"
-                            placeholder="12-4-2028"
+                            type="text"
+                            id="categoryCd"
+                            name="categoryCd"
+                            placeholder="HSJS"
 							
 							/>
                         </div>
                         
-                        <div class="col-md-2">
-						<label class="form-label" >Account Status</label>
-                          <div class="form-check form-switch">
-                        <input
-                          class="form-check-input"
-                          type="checkbox"
-                          id="flexSwitchCheckCheckedDisabled"
-                          checked
-                          />
-                        <label class="form-check-label" for="flexSwitchCheckCheckedDisabled"
-                          >ACTIVE</label
-                        >
-                      </div>
- 
+                        <div class="col-md-4">
+                          <label class="form-label" >Source</label>
+                          <input
+                            class="form-control"
+                            type="text"
+                            id="source"
+                            name="source"
+                            placeholder="Test"
+							
+							/>                        
+						</div>
+                         <div class="col-md-4">
+                          <label class="form-label" >Description</label>
+                          <input
+                            class="form-control"
+                            type="text"
+                            id="description"
+                            name="description"
+                            placeholder="Test Test"
+							
+							/>
+                        </div>
+						<div class="col-md-4">
+                          <label class="form-label" >Amount</label>
+                          <input
+                            class="form-control"
+                            type="text"
+                            id="amount"
+                            name="amount"
+                            placeholder="10,000-00"
+							
+							/>
+                        </div>
+						<div class="col-md-4">
+                          <label class="form-label" >Orig Date</label>
+                          <input
+                            class="form-control"
+                            type="datetime"
+                            id="origDate"
+                            name="OrigDate"
+                            placeholder="12-05-2023"
+							
+							/>
+                        </div>
+						<div class="col-md-4">
+                          <label class="form-label" >Proc Date</label>
+                          <input
+                            class="form-control"
+                            type="datetime"
+                            id="procDate"
+                            name="procDate"
+                            placeholder="12-05-2023"
+							
+							/>
+                        </div>
+						<div class="col-md-4">
+                         <label class="form-label" >Merchant Id</label>
+                          <input
+                            class="form-control"
+                            type="text"
+                            id="merchantID"
+                            name="merchantID"
+                            placeholder="001092"
+							
+							/>
+                        </div>
+						<div class="col-md-4">
+                         <label class="form-label" >Merchant Name</label>
+                          <input
+                            class="form-control"
+                            type="text"
+                            id="merchantName"
+                            name="merchantName"
+                            placeholder="Simpolo Cermanics."
+							
+							/>
+                        </div>
+						<div class="col-md-4">
+                         <label class="form-label" >Merchant City</label>
+                          <input
+                            class="form-control"
+                            type="text"
+                            id="merchantCity"
+                            name="merchantCity"
+                            placeholder="IRVING"
+							
+							/>
+                        </div>
+						<div class="col-md-4">
+                         <label class="form-label" >Merchant ZIP</label>
+                          <input
+                            class="form-control"
+                            type="text"
+                            id="merchantZip"
+                            name="merchantZip"
+                            placeholder="500085"
+							
+							/>
                         </div>
 						
-					<div class="col-4">		
-                          <button type="submit" name="submitButton" class="btn btn-primary">Update Credit Card</button>
+					  </div>
+					  <div class="col-12">
+                          <button type="submit" name="submitButton" class="btn btn-primary">ADD Transaction</button>
                         </div>
-                       
+
                        </form>
                     </div>
                   </div>

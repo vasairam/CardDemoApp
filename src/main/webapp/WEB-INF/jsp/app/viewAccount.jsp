@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-
+<%@ page import="java.util.*" %>
+<%@ page import="com.cg.CardDemoApplication.model.*" %>
+com.cg.CardDemoApplication.model
 <html
   lang="en"
   class="light-style layout-navbar-fixed layout-menu-fixed"
@@ -15,7 +17,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>View Account | CARD DEMO </title>
+    <title> View Account | Card Demo </title>
 
     <meta name="description" content="" />
 
@@ -63,6 +65,97 @@
     <!-- <script src="../assets/vendor/js/template-customizer.js"></script> -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../assets/js/config.js"></script>
+    <script>  
+          function viewAccount() {
+         // alert("called");
+           var flag =false;
+              // Request
+              const form = document.getElementById("viewAccount");
+              var accountNumber=document.getElementById("accountNumber").value;
+         
+              var request = new XMLHttpRequest();
+              request.open("GET","/account/find/"+accountNumber);
+              request.send();
+    
+              // Response
+              request.onreadystatechange = function () {
+          
+              if (this.readyState == 4 
+                  && this.status == 200) 
+              {
+                  var data=request.responseText;
+                  
+                  const myObj = JSON.parse(data);
+                  //alert(myObj.role);
+                  document.getElementById('openeddate').value=myObj.openedDate;
+                  document.getElementById('expirydate').value=myObj.expiryDate;
+                  document.getElementById('reissueddate').value=myObj.reissuedDate;
+                  document.getElementById('creditlimit').value=myObj.creditLimit;
+                  document.getElementById('cashcreditlimit').value=myObj.cashCreditLimit;
+                  document.getElementById('currentbalance').value=myObj.currentBalance;
+                  document.getElementById('currentcyclecredit').value=myObj.currentCycleCredit;
+                  document.getElementById('currentcycledebit').value=myObj.currentCycleDebit;
+                  document.getElementById('accountgroup').value=myObj.accountGroup;
+                  viewCustomer();
+              }
+              else
+                  if(this.status == 403&&flag==false)
+                  {
+                    flag=true;
+                    alert("Account Number Not Found....!");
+                    //break;
+                  }
+              }              
+          }
+
+          function viewCustomer(){
+
+              var accountNumber=document.getElementById("accountNumber").value;
+              var customerNumber = accountNumber.substring(2,11);
+              console.log(customerNumber);
+              var request2 = new XMLHttpRequest();
+              request2.open("GET","/customer/find/"+customerNumber);
+              request2.send();
+    
+              // Response
+              request2.onreadystatechange = function () {
+          
+              if (this.readyState == 4 
+                  && this.status == 200) 
+              {
+                  var data2=request2.responseText;
+                  console.log(data2);
+                  const myObj2 = JSON.parse(data2);
+                  //alert(myObj.role);
+                  document.getElementById('customerid').value=myObj2.customerNumber;
+                  document.getElementById('firstName').value=myObj2.firstName;
+                  document.getElementById('middleName').value=myObj2.middleName;
+                  document.getElementById('lastName').value=myObj2.lastName;
+                  document.getElementById('ssn').value=myObj2.ssn;
+                  document.getElementById('dateOfBirth').value=myObj2.dob;
+                  document.getElementById('ficoScore').value=myObj2.ficoScore;
+                  document.getElementById('address').value=myObj2.address;
+                  document.getElementById('city').value=myObj2.city;
+                  document.getElementById('zip').value=myObj2.zip;
+                  document.getElementById('state').value=myObj2.state;
+                  document.getElementById('country').value=myObj2.country;
+                  document.getElementById('phoneNumber1').value=myObj2.phone1;
+                  document.getElementById('phoneNumber2').value=myObj2.phone2;
+                  document.getElementById('govtIdRefId').value=myObj2.govtIssuedIdRef;
+                  document.getElementById('eftAccountId').value=myObj2.eftAccountId;
+          
+              }
+              else
+                  if(this.status == 403&&flag==false)
+                  {
+                    flag=true;
+                    alert("Customer Number Not Found....!");
+                    //break;
+                  }
+              }
+
+          }
+      </script>
   </head>
 
   <body>
@@ -98,12 +191,12 @@
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="" class="menu-link">
+                  <a href="/viewAccount" class="menu-link">
                     <div data-i18n="View Account">View Account</div>
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="" class="menu-link">
+                  <a href="/updateAccount" class="menu-link">
                     <div data-i18n="Update Account">Update Account</div>
                   </a>
                 </li>
@@ -116,12 +209,7 @@
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="#" class="menu-link">
-                    <div data-i18n="View Bill Payment">View Bill Payment</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="#" class="menu-link">
+                  <a href="/billPayment" class="menu-link">
                     <div data-i18n="Pay Bill">Pay Bill</div>
                   </a>
                 </li>
@@ -134,18 +222,18 @@
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="app-access-roles.jsp" class="menu-link">
-                    <div data-i18n="Search Card">Search Card</div>
+                  <a href="/listCreditCards" class="menu-link">
+                    <div data-i18n="List Card">List Credit Cards</div>
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="#" class="menu-link">
-                    <div data-i18n="List Card">List Card</div>
+                  <a href="/viewCreditCard" class="menu-link">
+                    <div data-i18n="Search Card">View Credit Card</div>
                   </a>
                 </li>
-				 <li class="menu-item">
-                  <a href="#" class="menu-link">
-                    <div data-i18n="Update Card">Update Card</div>
+                <li class="menu-item">
+                  <a href="/updateCreditCard" class="menu-link">
+                    <div data-i18n="Update Card">Update Credit Card</div>
                   </a>
                 </li>
               </ul>
@@ -157,18 +245,18 @@
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="#" class="menu-link">
-                    <div data-i18n="Search Transaction">Search Transaction</div>
+                  <a href="/listTransactions" class="menu-link">
+                    <div data-i18n="Search Transaction">List Transactions</div>
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="#" class="menu-link">
-                    <div data-i18n="List Transaction">List Transaction</div>
+                  <a href="/viewTransaction" class="menu-link">
+                    <div data-i18n="List Transaction">View Transaction</div>
                   </a>
                 </li>
-				 <li class="menu-item">
-                  <a href="#" class="menu-link">
-                    <div data-i18n="Update Transaction">Update Transaction</div>
+				        <li class="menu-item">
+                  <a href="/addTransaction" class="menu-link">
+                    <div data-i18n="Update Transaction">Add Transaction</div>
                   </a>
                 </li>
               </ul>
@@ -228,84 +316,12 @@
               <!-- /Search -->
 
               <ul class="navbar-nav flex-row align-items-center ms-auto">
-                <!-- Language -->
-                <li class="nav-item dropdown-language dropdown me-2 me-xl-0">
-                  <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                    <i class="fi fi-us fis rounded-circle me-1 fs-3"></i>
-                  </a>
-                  <ul class="dropdown-menu dropdown-menu-end">
-                    <li>
-                      <a class="dropdown-item" href="javascript:void(0);" data-language="en">
-                        <i class="fi fi-us fis rounded-circle me-1 fs-3"></i>
-                        <span class="align-middle">English</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="javascript:void(0);" data-language="fr">
-                        <i class="fi fi-fr fis rounded-circle me-1 fs-3"></i>
-                        <span class="align-middle">French</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="javascript:void(0);" data-language="de">
-                        <i class="fi fi-de fis rounded-circle me-1 fs-3"></i>
-                        <span class="align-middle">German</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="javascript:void(0);" data-language="pt">
-                        <i class="fi fi-pt fis rounded-circle me-1 fs-3"></i>
-                        <span class="align-middle">Portuguese</span>
-                      </a>
-                    </li>
+                
                   </ul>
                 </li>
                 <!--/ Language -->
 
-                <!-- Style Switcher -->
-                <li class="nav-item me-2 me-xl-0">
-                  <a class="nav-link style-switcher-toggle hide-arrow" href="javascript:void(0);">
-                    <i class="ti ti-md"></i>
-                  </a>
-                </li>
-                <!--/ Style Switcher -->
-
                 
-
-                <!-- Notification -->
-                <li class="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-1">
-                  <a
-                    class="nav-link dropdown-toggle hide-arrow"
-                    href="javascript:void(0);"
-                    data-bs-toggle="dropdown"
-                    data-bs-auto-close="outside"
-                    aria-expanded="false"
-                  >
-                    <i class="ti ti-bell ti-md"></i>
-                    <span class="badge bg-danger rounded-pill badge-notifications">3</span>
-                  </a>
-                  <ul class="dropdown-menu dropdown-menu-end py-0">
-                    <li class="dropdown-menu-header border-bottom">
-                      <div class="dropdown-header d-flex align-items-center py-3">
-                        <h5 class="text-body mb-0 me-auto">Notification</h5>
-                        <a
-                          href="javascript:void(0)"
-                          class="dropdown-notifications-all text-body"
-                          data-bs-toggle="tooltip"
-                          data-bs-placement="top"
-                          title="Mark all as read"
-                          ><i class="ti ti-mail-opened fs-4"></i
-                        ></a>
-                      </div>
-                    </li>
-                   
-                      </ul>
-                    </li>
-                    
-                    </li>
-                  </ul>
-                </li>
-                <!--/ Notification -->
 
                 <!-- User -->
                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
@@ -316,7 +332,7 @@
                   </a>
                   <ul class="dropdown-menu dropdown-menu-end">
                     <li>
-                      <a class="dropdown-item" href="pages-account-settings-account.jsp">
+                      <a class="dropdown-item" href="pages-account-settings-account.html">
                         <div class="d-flex">
                           <div class="flex-shrink-0 me-3">
                             <div class="avatar avatar-online">
@@ -324,8 +340,12 @@
                             </div>
                           </div>
                           <div class="flex-grow-1">
-                            <span class="fw-semibold d-block">Subash Balan</span>
-                            <small class="text-muted">User</small>
+                          <%  User sessionUser = (User) session.getAttribute("loggedInUser");
+                          		String userFirstName = sessionUser.getFirstName();
+                              String userLastName = sessionUser.getLastName();
+                          %>
+                            <span class="fw-semibold d-block"><%=userFirstName%> <%=userLastName%></span>
+                            <small class="text-muted"><%=sessionUser.getRole()%></small>
                           </div>
                         </div>
                       </a>
@@ -334,13 +354,13 @@
                       <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="pages-profile-user.jsp">
+                      <a class="dropdown-item" href="pages-profile-user.html">
                         <i class="ti ti-user-check me-2 ti-sm"></i>
                         <span class="align-middle">My Profile</span>
                       </a>
                     </li>
                                         <li>
-                      <a class="dropdown-item" href="login.jsp">
+                      <a class="dropdown-item" href="/login">
                         <i class="ti ti-logout me-2 ti-sm"></i>
                         <span class="align-middle">Log Out</span>
                       </a>
@@ -376,7 +396,7 @@
                   <div class="card">
                    
                     <div class="card-body">
-                      <form id="formValidationExamples" class="row g-3">
+                      <form id="viewAccount" class="row g-3">
                         <!-- Account Details -->
 
                         <div class="col-12">
@@ -391,7 +411,7 @@
                           class="form-control"
                           placeholder="Account Number.."
                           aria-label="Account Number..."
-                          aria-describedby="basic-addon-search31" />
+                          aria-describedby="basic-addon-search31" name="accountNumber" id="accountNumber" onblur="return viewAccount()"/>
                       </div>
                         <div class="col-md-4">
                           <label class="form-label" >Opened Date</label>
@@ -525,9 +545,8 @@
                             class="form-control"
                             type="text"
                             id="customerid"
-                            name="Customer ID"
-                            placeholder="Subhash Balan"
-							value="c3yiuwegqwk"
+                            name="customerid"
+                            placeholder="Customer Id"
 							readonly
 							/>                        
 						</div>
@@ -536,9 +555,9 @@
                           <input
                             class="form-control"
                             type="text"
-                            id="firstname"
+                            id="firstName"
                             name="firstName"
-                            placeholder="Subhash"
+                            placeholder="First Name"
 							readonly
 							/>
                         </div>
@@ -547,9 +566,9 @@
                           <input
                             class="form-control"
                             type="text"
-                            id="middlename"
+                            id="middleName"
                             name="middleName"
-                            placeholder="Balan"
+                            placeholder="Middle Name"
 							readonly
 							/>
 						</div>
@@ -558,9 +577,9 @@
                           <input
                             class="form-control"
                             type="text"
-                            id="lastname"
+                            id="lastName"
                             name="lastName"
-                            placeholder="Subhash"
+                            placeholder="Last Name"
 							readonly
 							/>
                         </div>
@@ -571,7 +590,7 @@
                             type="text"
                             id="ssn"
                             name="ssn"
-                            placeholder="013493934179"
+                            placeholder="SSN"
 							readonly
 							/>
                         </div>
@@ -580,9 +599,9 @@
                           <input
                             class="form-control"
                             type="datetime"
-                            id="dateofbirth"
+                            id="dateOfBirth"
                             name="dateOfBirth"
-                            placeholder="14-05-2022"
+                            placeholder="DOB"
 							readonly
 							/>
                         </div>
@@ -591,9 +610,9 @@
                           <input
                             class="form-control"
                             type="text"
-                            id="ficoscore"
+                            id="ficoScore"
                             name="ficoScore"
-                            placeholder="234"
+                            placeholder="Fico Score"
 							readonly
 							/>
                         </div>
@@ -603,7 +622,8 @@
                             class="form-control"
                             id="address"
                             name="address"
-                            rows="3"></textarea>
+                            rows="3"
+                            placeholder="City"></textarea>
                         </div>
 						<div class="col-md-4">
                           <label class="form-label" >City</label>
@@ -612,7 +632,7 @@
                             type="text"
                             id="city"
                             name="city"
-                            placeholder="Dallas"
+                            placeholder="City"
 							readonly
 							/>
                         </div>
@@ -623,7 +643,7 @@
                             type="text"
                             id="zip"
                             name="zip"
-                            placeholder="509881"
+                            placeholder="Zip Code"
 							readonly
 							/>
                         </div>
@@ -634,7 +654,7 @@
                             type="text"
                             id="state"
                             name="state"
-                            placeholder="Texas"
+                            placeholder="State"
 							readonly
 							/>
                         </div>
@@ -645,7 +665,7 @@
                             type="text"
                             id="country"
                             name="country"
-                            placeholder="U.S.A"
+                            placeholder="Country"
 							readonly
 							/>
                         </div>
@@ -654,9 +674,9 @@
                           <input
                             class="form-control"
                             type="text"
-                            id="phonenumber1"
+                            id="phoneNumber1"
                             name="phoneNumber1"
-                            placeholder="9885988841"
+                            placeholder="Phone Number"
 							readonly
 							/>
                         </div>
@@ -665,9 +685,9 @@
                           <input
                             class="form-control"
                             type="text"
-                            id="phonenumber2"
+                            id="phoneNumber2"
                             name="phoneNumber2"
-                            placeholder="9885988841"
+                            placeholder="Alternate Number"
 							readonly
 							/>
                         </div>
@@ -676,9 +696,9 @@
                           <input
                             class="form-control"
                             type="text"
-                            id="govtidrefid"
+                            id="govtIdRefId"
                             name="govtIdRefId"
-                            placeholder="9885988841"
+                            placeholder=""
 							readonly
 							/>
                         </div>
@@ -687,9 +707,9 @@
                           <input
                             class="form-control"
                             type="text"
-                            id="eftaccountid"
+                            id="eftAccountId"
                             name="eftAccountId"
-                            placeholder="31943793847"
+                            placeholder="EFT Account Id"
 							readonly
 							/>
                         </div>

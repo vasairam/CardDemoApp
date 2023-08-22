@@ -107,7 +107,7 @@ public class UserService implements UserDetailsService {
 	}
 
 	public User updateUser(User user) {
-
+		
 		User updatedUser=findByEmail(user.getUsername());
 		updatedUser.setFirstName(user.getFirstName());
 		updatedUser.setLastName(user.getLastName());

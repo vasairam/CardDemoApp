@@ -13,8 +13,8 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name="ACCOUNT")
 public class Account {
+	
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "accountId")
     private int accountId;
 
