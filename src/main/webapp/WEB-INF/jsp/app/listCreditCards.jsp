@@ -43,7 +43,7 @@ com.cg.CardDemoApplication.model
     <link rel="stylesheet" href="../assets/css/demo.css" />
     <link rel="stylesheet" href="../assets/css/custom.css" />
 
-    <!-- Vendors CSS -->
+   <!-- Vendors CSS -->
     <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
     <link rel="stylesheet" href="../assets/vendor/libs/node-waves/node-waves.css" />
     <link rel="stylesheet" href="../assets/vendor/libs/typeahead-js/typeahead.css" />
@@ -52,6 +52,10 @@ com.cg.CardDemoApplication.model
     <link rel="stylesheet" href="../assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css" />
     <link rel="stylesheet" href="../assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css" />
     <link rel="stylesheet" href="../assets/vendor/libs/datatables-checkboxes-jquery/datatables.checkboxes.css" />
+	<link rel="stylesheet" href="../assets/vendor/libs/typeahead-js/typeahead.css" />
+    
+    <link rel="stylesheet" href="../assets/vendor/libs/datatables-checkboxes-jquery/datatables.checkboxes.css" />
+    <link rel="stylesheet" href="../assets/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css" />
 
     <!-- Page CSS -->
     <link rel="stylesheet" href="../assets/vendor/css/pages/cards-advance.css" />
@@ -92,6 +96,7 @@ com.cg.CardDemoApplication.model
 
           <div class="menu-inner-shadow"></div>
 
+          
           <ul class="menu-inner py-1">
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -230,8 +235,6 @@ com.cg.CardDemoApplication.model
                 </li>
                 <!--/ Language -->
 
-                
-
                 <!-- User -->
                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                   <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
@@ -297,95 +300,109 @@ com.cg.CardDemoApplication.model
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-			<h4 class="fw-bold "><span class="text-muted fw-light">Credit Card/</span> Update Credit Card </h4>
-              <div class="row">
+			<h4 class="fw-bold "><span class="text-muted fw-light">Credit Card/</span> List Credit Cards </h4>
+             <!--<div class="row"> -->
 			  
                 <!-- Website Analytics -->
-                <div class="col-12">
-                  <div class="card">
-                   
-                    <div class="card-body">
-                      <form id="formValidationExamples" class="row g-3">
-                        <!-- Account Details -->
-
-                        <div class="col-12">
-                          <h6 class="fw-semibold">1. Card Details</h6>
-                          <hr class="mt-0" />
-                        </div>
-                        <div class="col-md-6">
-                        <div class="input-group input-group-merge">
-                        <span class="input-group-text" id="basic-addon-search31"><i class="ti ti-search"></i></span>
-                        <input
-                          type="text"
-                          class="form-control"
-                          placeholder="Account Number.."
-                          aria-label="Account Number..."
-                          aria-describedby="basic-addon-search31" />
-                      </div>
-					  </div>
-					  <div class="col-md-6">
-                        <div class="input-group input-group-merge">
-                        <span class="input-group-text" id="basic-addon-search31"><i class="ti ti-search"></i></span>
-                        <input
-                          type="text"
-                          class="form-control"
-                          placeholder="Credit Card Number.."
-                          aria-label="Credit Card Number..."
-                          aria-describedby="basic-addon-search31" />
-                      </div>
-					  </div>
-					  
-                        <div class="col-md-4">
-                          <label class="form-label" >Name On the Card</label>
-                          <input
-                            class="form-control"
-                            type="text"
-                            id="nameonthecard"
-                            name="nameOnTheCard"
-                            placeholder="Naveen "
-							
-							/>
-                        </div>
-
-                        <div class="col-md-4">
-                          
-                            <label class="form-label" >Expiry Date</label>
-                          <input
-                            class="form-control"
-                            type="datetime"
-                            id="expirydate"
-                            name="expiryDate"
-                            placeholder="12-4-2028"
-							
-							/>
-                        </div>
-                        
-                        <div class="col-md-2">
-						<label class="form-label" >Account Status</label>
-                          <div class="form-check form-switch">
-                        <input
-                          class="form-check-input"
-                          type="checkbox"
-                          id="flexSwitchCheckCheckedDisabled"
-                          checked
-                          />
-                        <label class="form-check-label" for="flexSwitchCheckCheckedDisabled"
-                          >ACTIVE</label
-                        >
-                      </div>
- 
-                        </div>
-						
-					<div class="col-4">		
-                          <button type="submit" name="submitButton" class="btn btn-primary">Update Credit Card</button>
-                        </div>
-                       
-                       </form>
-                    </div>
-                  </div>
+                 <!-- Basic Bootstrap Table -->
+              <div class="card">
+                <h5 class="card-header">Card List</h5>
+                <div class="table-responsive text-nowrap">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Account Number</th>
+                        <th>Card Number</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody class="table-border-bottom-0">
+                      <tr>
+                        <td>231259887321</td>
+						<td>894973408472</td>
+						<td><span class="badge bg-label-warning me-1">InActive</span></td>
+						 <td>
+                          <div class="dropdown">
+                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                              <i class="ti ti-dots-vertical"></i>
+                            </button>
+                            <div class="dropdown-menu">
+                              <a class="dropdown-item" href="javascript:void(0);"
+                                ><i class="ti ti-pencil me-1"></i> Edit</a>
+                              </div>
+                          </div>
+                        </td>
+                      </tr>
+					   <tr>
+                        <td>231259887321</td>
+						<td>894973408472</td>
+						<td><span class="badge bg-label-primary me-1">Active</span></td>
+						 <td>
+                          <div class="dropdown">
+                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                              <i class="ti ti-dots-vertical"></i>
+                            </button>
+                            <div class="dropdown-menu">
+                              <a class="dropdown-item" href="javascript:void(0);"
+                                ><i class="ti ti-pencil me-1"></i> Edit</a>
+                              </div>
+                          </div>
+                        </td>
+                      </tr>
+					   <tr>
+                        <td>231259887321</td>
+						<td>894973408472</td>
+						<td><span class="badge bg-label-primary me-1">Active</span></td>
+						 <td>
+                          <div class="dropdown">
+                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                              <i class="ti ti-dots-vertical"></i>
+                            </button>
+                            <div class="dropdown-menu">
+                              <a class="dropdown-item" href="javascript:void(0);"
+                                ><i class="ti ti-pencil me-1"></i> Edit</a>
+                              </div>
+                          </div>
+                        </td>
+                      </tr>
+					   <tr>
+                        <td>231259887321</td>
+						<td>894973408472</td>
+						<td><span class="badge bg-label-success me-1">Active</span></td>
+						 <td>
+                          <div class="dropdown">
+                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                              <i class="ti ti-dots-vertical"></i>
+                            </button>
+                            <div class="dropdown-menu">
+                              <a class="dropdown-item" href="javascript:void(0);"
+                                ><i class="ti ti-pencil me-1"></i> Edit</a>
+                              </div>
+                          </div>
+                        </td>
+                      </tr>
+					   <tr>
+                        <td>231259887321</td>
+						<td>894973408472</td>
+						<td><span class="badge bg-label-success me-1">Active</span></td>
+						 <td>
+                          <div class="dropdown">
+                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                              <i class="ti ti-dots-vertical"></i>
+                            </button>
+                            <div class="dropdown-menu">
+                              <a class="dropdown-item" href="javascript:void(0);"
+                                ><i class="ti ti-pencil me-1"></i> Edit</a>
+                              </div>
+                          </div>
+                        </td>
+                      </tr>
+                                          </tbody>
+                  </table>
                 </div>
-                <!-- /FormValidation -->
-            </div>
+              </div>
+              <!--/ Basic Bootstrap Table -->
             <!-- / Content -->
 
            
@@ -454,6 +471,7 @@ com.cg.CardDemoApplication.model
     <script src="../assets/js/main.js"></script>
 
     <!-- Page JS -->
-    <script src="../assets/js/dashboards-analytics.js"></script>
+    <script src="../assets/vendor/js/dashboards-analytics.js"></script>
+	<script src="../assets/vendor/js/tables-datatables-basic.js"></script>													   
   </body>
 </html>

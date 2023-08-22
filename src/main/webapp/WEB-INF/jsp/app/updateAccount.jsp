@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-
+<%@ page import="java.util.*" %>
+<%@ page import="com.cg.CardDemoApplication.model.*" %>
+com.cg.CardDemoApplication.model
 <html
   lang="en"
   class="light-style layout-navbar-fixed layout-menu-fixed"
@@ -15,7 +17,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>View Account | CARD DEMO </title>
+    <title>View Account | Card Demo </title>
 
     <meta name="description" content="" />
 
@@ -63,78 +65,118 @@
     <!-- <script src="../assets/vendor/js/template-customizer.js"></script> -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../assets/js/config.js"></script>
-	<script>
-	  function updateAccount() {
-       // alert("called");
-   var confirm1=confirm('Are you sure you want to delete?');
-			if(confirm1==true){
-            // Request
-            const form = document.getElementById("deleteUser");
+    <script>  
+
+        function updateAccount() {
+            const form = document.getElementById("updateAccount");
             var request = new XMLHttpRequest();
             var data = new FormData(form);
-            request.open("POST","/deleteUserPOST");
+            request.open("POST","/updateAccountDetails");
+            console.log(data);
             request.send(data);
-			
+  
             // Response
             request.onreadystatechange = function () {
                 if (this.readyState == 4 
                     && this.status == 200) {
-                    alert("User Deleted Successfully...!");
+                    alert("Details Updated Successfully...!");
 					form.reset();
                 }
             }
         }
-	  }
-	 
-        function fetchAccount() {
-       // alert("called");
-         var flag =false;
-            // Request
-            const form = document.getElementById("updateAccount");
-			 var username=document.getElementById("accountname").value;
-			 
-			
-            var request = new XMLHttpRequest();
-            request.open("GET","/user/find/email/"+username);
-            request.send();
-  
-            // Response
-            request.onreadystatechange = function () {
-				
-                if (this.readyState == 4 
-                    && this.status == 200) {
-						var data=request.responseText;
-						
-						const myObj = JSON.parse(data);
-						document.getElementById('firstname').value=myObj.firstName;
-						document.getElementById('lastname').value=myObj.lastName;
-						document.getElementById('password').value=myObj.password;
-						var select = document.getElementById('role');
-                        var option; 
-						for (var i=0; i<select.options.length; i++) {
-						option = select.options[i];
 
-						if (option.text == myObj.role) {
-  
-                     option.setAttribute('selected', true);
 
-                                         
-                       } 
-                       }
-				
-                }
-				else
-					if(this.status == 403&&flag==false)
-					{
-						flag=true;
-				alert("No User Name Found....!");
-				//break;
-					}
-					
-			}
-            }
-        
-    </script>
+      function viewAccount() {
+     // alert("called");
+       var flag =false;
+          // Request
+          const form = document.getElementById("updateAccount");
+          var accountNumber=document.getElementById("accountNumber").value;
+     
+          var request = new XMLHttpRequest();
+          request.open("GET","/account/find/"+accountNumber);
+          request.send();
+
+          // Response
+          request.onreadystatechange = function () {
+      
+          if (this.readyState == 4 
+              && this.status == 200) 
+          {
+              var data=request.responseText;
+              
+              const myObj = JSON.parse(data);
+              //alert(myObj.role);
+              document.getElementById('openedDate').value=myObj.openedDate;
+              document.getElementById('expiryDate').value=myObj.expiryDate;
+              document.getElementById('reissuedDate').value=myObj.reissuedDate;
+              document.getElementById('creditLimit').value=myObj.creditLimit;
+              document.getElementById('cashCreditLimit').value=myObj.cashCreditLimit;
+              document.getElementById('currentBalance').value=myObj.currentBalance;
+              document.getElementById('currentCycleCredit').value=myObj.currentCycleCredit;
+              document.getElementById('currentCycleDebit').value=myObj.currentCycleDebit;
+              document.getElementById('accountGroup').value=myObj.accountGroup;
+              viewCustomer();
+          }
+          else
+              if(this.status == 403&&flag==false)
+              {
+                flag=true;
+                alert("Account Number Not Found....!");
+                //break;
+              }
+          }              
+      }
+
+      function viewCustomer(){
+
+          var accountNumber=document.getElementById("accountNumber").value;
+          var customerNumber = accountNumber.substring(2,11);
+          console.log(customerNumber);
+          var request2 = new XMLHttpRequest();
+          request2.open("GET","/customer/find/"+customerNumber);
+          request2.send();
+
+          // Response
+          request2.onreadystatechange = function () {
+      
+          if (this.readyState == 4 
+              && this.status == 200) 
+          {
+              var data2=request2.responseText;
+              console.log(data2);
+              const myObj2 = JSON.parse(data2);
+              //alert(myObj.role);
+              document.getElementById('customerNumber').value=myObj2.customerNumber;
+              document.getElementById('firstName').value=myObj2.firstName;
+              document.getElementById('middleName').value=myObj2.middleName;
+              document.getElementById('lastName').value=myObj2.lastName;
+              document.getElementById('ssn').value=myObj2.ssn;
+              document.getElementById('dob').value=myObj2.dob;
+              document.getElementById('ficoScore').value=myObj2.ficoScore;
+              document.getElementById('address').value=myObj2.address;
+              document.getElementById('city').value=myObj2.city;
+              document.getElementById('zip').value=myObj2.zip;
+              document.getElementById('state').value=myObj2.state;
+              document.getElementById('country').value=myObj2.country;
+              document.getElementById('phone1').value=myObj2.phone1;
+              document.getElementById('phone2').value=myObj2.phone2;
+              document.getElementById('govtIssuedIdRef').value=myObj2.govtIssuedIdRef;
+              document.getElementById('eftAccountId').value=myObj2.eftAccountId;
+      
+          }
+          else
+              if(this.status == 403&&flag==false)
+              {
+                flag=true;
+                alert("Customer Number Not Found....!");
+                //break;
+              }
+          }
+
+      }
+  </script>
+
   </head>
 
   <body>
@@ -170,12 +212,12 @@
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="" class="menu-link">
+                  <a href="/viewAccount" class="menu-link">
                     <div data-i18n="View Account">View Account</div>
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="" class="menu-link">
+                  <a href="/updateAccount" class="menu-link">
                     <div data-i18n="Update Account">Update Account</div>
                   </a>
                 </li>
@@ -188,12 +230,7 @@
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="#" class="menu-link">
-                    <div data-i18n="View Bill Payment">View Bill Payment</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="#" class="menu-link">
+                  <a href="/billPayment" class="menu-link">
                     <div data-i18n="Pay Bill">Pay Bill</div>
                   </a>
                 </li>
@@ -206,18 +243,18 @@
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="app-access-roles.jsp" class="menu-link">
-                    <div data-i18n="Search Card">Search Card</div>
+                  <a href="/listCreditCards" class="menu-link">
+                    <div data-i18n="List Card">List Credit Cards</div>
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="#" class="menu-link">
-                    <div data-i18n="List Card">List Card</div>
+                  <a href="/viewCreditCard" class="menu-link">
+                    <div data-i18n="Search Card">View Credit Card</div>
                   </a>
                 </li>
-				 <li class="menu-item">
-                  <a href="#" class="menu-link">
-                    <div data-i18n="Update Card">Update Card</div>
+                <li class="menu-item">
+                  <a href="/updateCreditCard" class="menu-link">
+                    <div data-i18n="Update Card">Update Credit Card</div>
                   </a>
                 </li>
               </ul>
@@ -229,18 +266,18 @@
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="#" class="menu-link">
-                    <div data-i18n="Search Transaction">Search Transaction</div>
+                  <a href="/listTransactions" class="menu-link">
+                    <div data-i18n="Search Transaction">List Transactions</div>
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="#" class="menu-link">
-                    <div data-i18n="List Transaction">List Transaction</div>
+                  <a href="/viewTransaction" class="menu-link">
+                    <div data-i18n="List Transaction">View Transaction</div>
                   </a>
                 </li>
-				 <li class="menu-item">
-                  <a href="#" class="menu-link">
-                    <div data-i18n="Update Transaction">Update Transaction</div>
+				        <li class="menu-item">
+                  <a href="/addTransaction" class="menu-link">
+                    <div data-i18n="Update Transaction">Add Transaction</div>
                   </a>
                 </li>
               </ul>
@@ -300,84 +337,12 @@
               <!-- /Search -->
 
               <ul class="navbar-nav flex-row align-items-center ms-auto">
-                <!-- Language -->
-                <li class="nav-item dropdown-language dropdown me-2 me-xl-0">
-                  <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                    <i class="fi fi-us fis rounded-circle me-1 fs-3"></i>
-                  </a>
-                  <ul class="dropdown-menu dropdown-menu-end">
-                    <li>
-                      <a class="dropdown-item" href="javascript:void(0);" data-language="en">
-                        <i class="fi fi-us fis rounded-circle me-1 fs-3"></i>
-                        <span class="align-middle">English</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="javascript:void(0);" data-language="fr">
-                        <i class="fi fi-fr fis rounded-circle me-1 fs-3"></i>
-                        <span class="align-middle">French</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="javascript:void(0);" data-language="de">
-                        <i class="fi fi-de fis rounded-circle me-1 fs-3"></i>
-                        <span class="align-middle">German</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="javascript:void(0);" data-language="pt">
-                        <i class="fi fi-pt fis rounded-circle me-1 fs-3"></i>
-                        <span class="align-middle">Portuguese</span>
-                      </a>
-                    </li>
+                
                   </ul>
                 </li>
                 <!--/ Language -->
 
-                <!-- Style Switcher -->
-                <li class="nav-item me-2 me-xl-0">
-                  <a class="nav-link style-switcher-toggle hide-arrow" href="javascript:void(0);">
-                    <i class="ti ti-md"></i>
-                  </a>
-                </li>
-                <!--/ Style Switcher -->
-
                 
-
-                <!-- Notification -->
-                <li class="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-1">
-                  <a
-                    class="nav-link dropdown-toggle hide-arrow"
-                    href="javascript:void(0);"
-                    data-bs-toggle="dropdown"
-                    data-bs-auto-close="outside"
-                    aria-expanded="false"
-                  >
-                    <i class="ti ti-bell ti-md"></i>
-                    <span class="badge bg-danger rounded-pill badge-notifications">3</span>
-                  </a>
-                  <ul class="dropdown-menu dropdown-menu-end py-0">
-                    <li class="dropdown-menu-header border-bottom">
-                      <div class="dropdown-header d-flex align-items-center py-3">
-                        <h5 class="text-body mb-0 me-auto">Notification</h5>
-                        <a
-                          href="javascript:void(0)"
-                          class="dropdown-notifications-all text-body"
-                          data-bs-toggle="tooltip"
-                          data-bs-placement="top"
-                          title="Mark all as read"
-                          ><i class="ti ti-mail-opened fs-4"></i
-                        ></a>
-                      </div>
-                    </li>
-                   
-                      </ul>
-                    </li>
-                    
-                    </li>
-                  </ul>
-                </li>
-                <!--/ Notification -->
 
                 <!-- User -->
                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
@@ -388,7 +353,7 @@
                   </a>
                   <ul class="dropdown-menu dropdown-menu-end">
                     <li>
-                      <a class="dropdown-item" href="pages-account-settings-account.jsp">
+                      <a class="dropdown-item" href="pages-account-settings-account.html">
                         <div class="d-flex">
                           <div class="flex-shrink-0 me-3">
                             <div class="avatar avatar-online">
@@ -396,8 +361,12 @@
                             </div>
                           </div>
                           <div class="flex-grow-1">
-                            <span class="fw-semibold d-block">Subash Balan</span>
-                            <small class="text-muted">User</small>
+                          <%  User sessionUser = (User) session.getAttribute("loggedInUser");
+                          		String userFirstName = sessionUser.getFirstName();
+                              String userLastName = sessionUser.getLastName();
+                          %>
+                            <span class="fw-semibold d-block"><%=userFirstName%> <%=userLastName%></span>
+                            <small class="text-muted"><%=sessionUser.getRole()%></small>
                           </div>
                         </div>
                       </a>
@@ -406,13 +375,13 @@
                       <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="pages-profile-user.jsp">
+                      <a class="dropdown-item" href="pages-profile-user.html">
                         <i class="ti ti-user-check me-2 ti-sm"></i>
                         <span class="align-middle">My Profile</span>
                       </a>
                     </li>
                                         <li>
-                      <a class="dropdown-item" href="login">
+                      <a class="dropdown-item" href="/login">
                         <i class="ti ti-logout me-2 ti-sm"></i>
                         <span class="align-middle">Log Out</span>
                       </a>
@@ -449,347 +418,322 @@
                   <div class="card">
                    
             </li>
-                    <div class="card-body">
-                      <form id="formValidationExamples" class="row g-3">
-                        <!-- Account Details -->
-
-                        <div class="col-12">
-                          <h6 class="fw-semibold">1. Account Details</h6>
-                          <hr class="mt-0" />
-                        </div>
-
-                        <div class="input-group input-group-merge">
-                        <span class="input-group-text" id="basic-addon-search31"><i class="ti ti-search"></i></span>
-                        <input
-						  name="accountName"
-						  id="accountname"
-                          type="text"
-                          class="form-control"
-                          placeholder="Account Number.."
-                          aria-label="Account Number..."
-                          aria-describedby="basic-addon-search31" />
-                      </div>
-                        <div class="col-md-4">
-                          <label class="form-label" >Opened Date</label>
-                          <input
-						  
-                            class="form-control"
-                            type="datetime"
-                            id="openeddate"
-                            name="openedDate"
-                            placeholder="12-4-2023"
-							
-							/>
-                        </div>
-
-                        <div class="col-md-4">
-                          
-                            <label class="form-label" >Expiry Date</label>
-                          <input
-                            class="form-control"
-                            type="datetime"
-                            id="expirydate"
-                            name="expiryDate"
-                            placeholder="12-4-2028"
-							
-							/>
-                        </div>
-                        
-                        <div class="col-md-4">
-                          <label class="form-label" >Reissued Date</label>
-                          <input
-                            class="form-control"
-                            type="datetime"
-                            id="reissueddate"
-                            name="reisuuedDate"
-                            placeholder="12-4-2028"
-							
-							/>                        
-						</div>
-                         <div class="col-md-4">
-                          <label class="form-label" >Credit Limit</label>
-                          <input
-                            class="form-control"
-                            type="text"
-                            id="creditlimit"
-                            name="creditLimit"
-                            placeholder="1,00,000-00"
-							
-							/>
-                        </div>
-						<div class="col-md-4">
-                          <label class="form-label" >Cash Credit Limit</label>
-                          <input
-                            class="form-control"
-                            type="text"
-                            id="cashcreditlimit"
-                            name="cashCreditLimit"
-                            placeholder="10,000-00"
-							
-							/>
-                        </div>
-						<div class="col-md-4">
-                          <label class="form-label" >Current Balance</label>
-                          <input
-                            class="form-control"
-                            type="text"
-                            id="currentbalance"
-                            name="currentBalance"
-                            placeholder="90,000-00"
-							
-							/>
-                        </div>
-						<div class="col-md-4">
-                          <label class="form-label" >Current Cycle Credit</label>
-                          <input
-                            class="form-control"
-                            type="text"
-                            id="currentcyclecredit"
-                            name="currentCycleCredit"
-                            placeholder="12,000-00"
-							
-							/>
-                        </div>
-						<div class="col-md-4">
-                         <label class="form-label" >Current Cycle Debit</label>
-                          <input
-                            class="form-control"
-                            type="text"
-                            id="currentcycledebit"
-                            name="currentCycleDebit"
-                            placeholder="23,000-00"
-							
-							/>
-                        </div>
-						<div class="col-md-2">
-                         <label class="form-label" >Account Group</label>
-                          <input
-                            class="form-control"
-                            type="text"
-                            id="accountgroup"
-                            name="accountGroup"
-                            placeholder=""
-							
-							/>
-                        </div>
-						<div class="col-md-2">
-						<label class="form-label" >Account Status</label>
-                          <div class="form-check form-switch">
-                        <input
-                          class="form-check-input"
-                          type="checkbox"
-                          id="flexSwitchCheckCheckedDisabled"
-                          checked
-                          disabled />
-                        <label class="form-check-label" for="flexSwitchCheckCheckedDisabled"
-                          >ACTIVE</label
-                        >
-                      </div>
- 
-                        </div>
-						
-
-                        <!-- Personal Info -->
-
-                        <div class="col-12">
-                          <h6 class="mt-2 fw-semibold">2. Customer Details</h6>
-                          <hr class="mt-0" />
-                        </div>
-
-                         <div class="col-md-4">
-                          <label class="form-label" >Customer Id</label>
-                          <input
-                            class="form-control"
-                            type="text"
-                            id="customerid"
-                            name="Customer ID"
-                            placeholder="Subhash Balan"
-							value="c3yiuwegqwk"
-							
-							/>                        
-						</div>
-                         <div class="col-md-4">
-                          <label class="form-label" >First Name</label>
-                          <input
-                            class="form-control"
-                            type="text"
-                            id="firstname"
-                            name="firstName"
-                            placeholder="Subhash"
-							
-							/>
-                        </div>
-						<div class="col-md-4">
-                          <label class="form-label" >Middle Name</label>
-                          <input
-                            class="form-control"
-                            type="text"
-                            id="middlename"
-                            name="middleName"
-                            placeholder="Balan"
-							
-							/>
-						</div>
-							<div class="col-md-4">
-                          <label class="form-label" >Last Name</label>
-                          <input
-                            class="form-control"
-                            type="text"
-                            id="lastname"
-                            name="lastName"
-                            placeholder="Subhash"
-							
-							/>
-                        </div>
-						<div class="col-md-4">
-                          <label class="form-label" >SSN</label>
-                          <input
-                            class="form-control"
-                            type="text"
-                            id="ssn"
-                            name="ssn"
-                            placeholder="013493934179"
-							
-							/>
-                        </div>
-						<div class="col-md-4">
-                          <label class="form-label" >Date Of Birth</label>
-                          <input
-                            class="form-control"
-                            type="datetime"
-                            id="dateofbirth"
-                            name="dateOfBirth"
-                            placeholder="14-05-2022"
-							
-							/>
-                        </div>
-						<div class="col-md-4">
-                          <label class="form-label" >FICO Score</label>
-                          <input
-                            class="form-control"
-                            type="text"
-                            id="ficoscore"
-                            name="ficoScore"
-                            placeholder="234"
-							
-							/>
-                        </div>
-						<div class="col-md-4">
-                          <label class="form-label" >Address</label>
-                          <textarea
-                            class="form-control"
-                            id="address"
-                            name="address"
-                            rows="3"></textarea>
-                        </div>
-						<div class="col-md-4">
-                          <label class="form-label" >City</label>
-                          <input
-                            class="form-control"
-                            type="text"
-                            id="city"
-                            name="city"
-                            placeholder="Dallas"
-							
-							/>
-                        </div>
-						<div class="col-md-4">
-                          <label class="form-label" >Zip Code</label>
-                          <input
-                            class="form-control"
-                            type="text"
-                            id="zip"
-                            name="zip"
-                            placeholder="509881"
-							
-							/>
-                        </div>
-						<div class="col-md-4">
-                          <label class="form-label" >State</label>
-                          <input
-                            class="form-control"
-                            type="text"
-                            id="state"
-                            name="state"
-                            placeholder="Texas"
-							
-							/>
-                        </div>
-						<div class="col-md-4">
-                          <label class="form-label" >Country</label>
-                          <input
-                            class="form-control"
-                            type="text"
-                            id="country"
-                            name="country"
-                            placeholder="U.S.A"
-							
-							/>
-                        </div>
-						<div class="col-md-4">
-                          <label class="form-label" >Phone Number-1</label>
-                          <input
-                            class="form-control"
-                            type="text"
-                            id="phonenumber1"
-                            name="phoneNumber1"
-                            placeholder="9885988841"
-							
-							/>
-                        </div>
-						<div class="col-md-4">
-                          <label class="form-label" >Phone Number-2</label>
-                          <input
-                            class="form-control"
-                            type="text"
-                            id="phonenumber2"
-                            name="phoneNumber2"
-                            placeholder="9885988841"
-							
-							/>
-                        </div>
-						<div class="col-md-4">
-                          <label class="form-label" >Goverment Issued Id Ref</label>
-                          <input
-                            class="form-control"
-                            type="text"
-                            id="govtidrefid"
-                            name="govtIdRefId"
-                            placeholder="9885988841"
-							
-							/>
-                        </div>
-						<div class="col-md-4">
-                          <label class="form-label" >EFT Account Id</label>
-                          <input
-                            class="form-control"
-                            type="text"
-                            id="eftaccountid"
-                            name="eftAccountId"
-                            placeholder="31943793847"
-							
-							/>
-                        </div>
-						<div class="col-md-4">
-						<label class="form-label" >Primary Account Holder</label>
-                          <div class="form-check form-switch">
-                        <input
-                          class="form-check-input"
-                          type="checkbox"
-                          id="flexSwitchCheckCheckedDisabled"
-                          checked
-                          />
-                        <label class="form-check-label" for="flexSwitchCheckCheckedDisabled"
-                          >YES</label
-                        >
-                      </div>
-					  </div>
-					  <div class="col-12">
-                          <button type="submit" name="submitButton" class="btn btn-primary">Update</button>
-                        </div>
-
-                       </form>
-                    </div>
+            <div class="card-body">
+              <form id="updateAccount" class="row g-3" action="#">
+                <!-- Account Details -->
+          
+                <div class="col-12">
+                  <h6 class="fw-semibold">1. Account Details</h6>
+                  <hr class="mt-0" />
+                </div>
+          
+                <div class="input-group input-group-merge">
+                <span class="input-group-text" id="basic-addon-search31"><i class="ti ti-search"></i></span>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Account Number.."
+                  aria-label="Account Number..."
+                  aria-describedby="basic-addon-search31" name="accountNumber" id="accountNumber" onblur="return viewAccount()"/>
+              </div>
+                <div class="col-md-4">
+                  <label class="form-label" >Opened Date</label>
+                  <input
+                    class="form-control"
+                    type="datetime"
+                    id="openedDate"
+                    name="openedDate"
+                    placeholder="12-4-2023"
+          />
+                </div>
+          
+                <div class="col-md-4">
+                  
+                    <label class="form-label" >Expiry Date</label>
+                  <input
+                    class="form-control"
+                    type="datetime"
+                    id="expiryDate"
+                    name="expiryDate"
+                    placeholder="12-4-2028"
+          />
+                </div>
+                
+                <div class="col-md-4">
+                  <label class="form-label" >Reissued Date</label>
+                  <input
+                    class="form-control"
+                    type="datetime"
+                    id="reissuedDate"
+                    name="reissuedDate"
+                    placeholder="12-4-2028"
+          />                        
+          </div>
+                 <div class="col-md-4">
+                  <label class="form-label" >Credit Limit</label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    id="creditLimit"
+                    name="creditLimit"
+                    placeholder="1,00,000-00"
+          />
+                </div>
+          <div class="col-md-4">
+                  <label class="form-label" >Cash Credit Limit</label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    id="cashCreditLimit"
+                    name="cashCreditLimit"
+                    placeholder="10,000-00"
+          />
+                </div>
+          <div class="col-md-4">
+                  <label class="form-label" >Current Balance</label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    id="currentBalance"
+                    name="currentBalance"
+                    placeholder="90,000-00"
+          />
+                </div>
+          <div class="col-md-4">
+                  <label class="form-label" >Current Cycle Credit</label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    id="currentCycleCredit"
+                    name="currentCycleCredit"
+                    placeholder="12,000-00"
+          />
+                </div>
+          <div class="col-md-4">
+                 <label class="form-label" >Current Cycle Debit</label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    id="currentCycleDebit"
+                    name="currentCycleDebit"
+                    placeholder="23,000-00"
+          />
+                </div>
+          <div class="col-md-2">
+                 <label class="form-label" >Account Group</label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    id="accountGroup"
+                    name="accountGroup"
+                    placeholder=""
+          />
+                </div>
+          <div class="col-md-2">
+          <label class="form-label" >Account Status</label>
+                  <div class="form-check form-switch">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="flexSwitchCheckCheckedDisabled"
+                  checked
+                  disabled />
+                <label class="form-check-label" for="flexSwitchCheckCheckedDisabled"
+                  >ACTIVE</label
+                >
+              </div>
+          
+                </div>
+          
+          
+                <!-- Personal Info -->
+          
+                <div class="col-12">
+                  <h6 class="mt-2 fw-semibold">2. Customer Details</h6>
+                  <hr class="mt-0" />
+                </div>
+          
+                 <div class="col-md-4">
+                  <label class="form-label" >Customer Id</label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    id="customerNumber"
+                    name="customerNumber"
+                    placeholder="Customer Id"              
+          />                        
+          </div>
+                 <div class="col-md-4">
+                  <label class="form-label" >First Name</label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    id="firstName"
+                    name="firstName"
+                    placeholder="First Name"
+          />
+                </div>
+          <div class="col-md-4">
+                  <label class="form-label" >Middle Name</label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    id="middleName"
+                    name="middleName"
+                    placeholder="Middle Name"
+          />
+          </div>
+          <div class="col-md-4">
+                  <label class="form-label" >Last Name</label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    id="lastName"
+                    name="lastName"
+                    placeholder="Last Name"
+          />
+                </div>
+          <div class="col-md-4">
+                  <label class="form-label" >SSN</label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    id="ssn"
+                    name="ssn"
+                    placeholder="SSN"
+          />
+                </div>
+          <div class="col-md-4">
+                  <label class="form-label" >Date Of Birth</label>
+                  <input
+                    class="form-control"
+                    type="datetime"
+                    id="dob"
+                    name="dob"
+                    placeholder="Date of Birth"
+          />
+                </div>
+          <div class="col-md-4">
+                  <label class="form-label" >FICO Score</label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    id="ficoScore"
+                    name="ficoScore"
+                    placeholder="Fico Score"
+          />
+                </div>
+          <div class="col-md-4">
+                  <label class="form-label" >Address</label>
+                  <textarea
+                    class="form-control"
+                    id="address"
+                    name="address"
+                    rows="3"
+                    placeholder="City"></textarea>
+                </div>
+          <div class="col-md-4">
+                  <label class="form-label" >City</label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    id="city"
+                    name="city"
+                    placeholder="City"
+          />
+                </div>
+          <div class="col-md-4">
+                  <label class="form-label" >Zip Code</label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    id="zip"
+                    name="zip"
+                    placeholder="Zip Code"
+          />
+                </div>
+          <div class="col-md-4">
+                  <label class="form-label" >State</label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    id="state"
+                    name="state"
+                    placeholder="State"
+          />
+                </div>
+          <div class="col-md-4">
+                  <label class="form-label" >Country</label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    id="country"
+                    name="country"
+                    placeholder="Country"
+          />
+                </div>
+          <div class="col-md-4">
+                  <label class="form-label" >Phone Number-1</label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    id="phone1"
+                    name="phone1"
+                    placeholder="Phone Number"
+          />
+                </div>
+          <div class="col-md-4">
+                  <label class="form-label" >Phone Number-2</label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    id="phone2"
+                    name="phone2"
+                    placeholder="Alternate Number"
+          />
+                </div>
+          <div class="col-md-4">
+                  <label class="form-label" >Goverment Issued Id Ref</label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    id="govtIssuedIdRef"
+                    name="govtIssuedIdRef"
+                    placeholder=""
+          />
+                </div>
+          <div class="col-md-4">
+                  <label class="form-label" >EFT Account Id</label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    id="eftAccountId"
+                    name="eftAccountId"
+                    placeholder="EFT Account Id"
+          />
+                </div>
+          <div class="col-md-4">
+          <label class="form-label" >Primary Account Holder</label>
+                  <div class="form-check form-switch">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="flexSwitchCheckCheckedDisabled"
+                  checked
+                  disabled />
+                <label class="form-check-label" for="flexSwitchCheckCheckedDisabled"
+                  >YES</label
+                >
+              </div>
+          </div>
+          <div class="col-12">
+              <button type="button"  onclick="return updateAccount()" name="submitButton"  class="btn btn-primary">Update</button>
+          </div>
+          
+          
+               </form>
+            </div>
+          
                   </div>
                 </div>
                 <!-- /FormValidation -->

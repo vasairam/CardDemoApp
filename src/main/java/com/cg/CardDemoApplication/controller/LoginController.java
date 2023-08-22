@@ -120,10 +120,6 @@ public class LoginController {
     	}    	   
 	}
     
-    @RequestMapping(value="/updateAccount", method = RequestMethod.GET)
-	public String showUpdateAccountPage(ModelMap model){
-		return "updateAccount";
-	}
     	
 	/*
 	 * @RequestMapping(value="/updateUser", method = RequestMethod.POST) public
@@ -131,11 +127,6 @@ public class LoginController {
 	 * 
 	 * userService.updateUser(user); return "updateUser"; }
 	 */
-    
-    @RequestMapping(value="/viewAccount", method = RequestMethod.GET)
-	public String showViewAccountPage(ModelMap model){
-		return "viewAccount";
-	}
        
     @RequestMapping(value="/viewUsers-data", method = RequestMethod.GET)
 	public String showViewUsersDataPage(ModelMap model){    	

@@ -68,7 +68,6 @@ public class UserController {
         
     @RequestMapping(value="/updateUser", method = RequestMethod.GET)
    	public String updateUser(@ModelAttribute("user")  User user, HttpSession session){
-    	//userService.updateUser(user);
     	String sessionUserRole = (String) session.getAttribute("userRole");
     	User sessionUser = (User) session.getAttribute("loggedInUser");
     	System.out.println("Session User Role : "+sessionUserRole);
