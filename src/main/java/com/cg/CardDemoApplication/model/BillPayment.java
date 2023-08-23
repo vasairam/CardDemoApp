@@ -22,8 +22,8 @@ public class BillPayment {
     @Column(name = "amountPaid")
     private float amountPaid;
 
-    @Column(name = "Paymentdate")
-    private Date Paymentdate;
+    @Column(name = "paymentdate")
+    private Date paymentdate;
 
     @Column(name = "createdBy")
     private int createdBy;
@@ -54,13 +54,15 @@ public class BillPayment {
 	public void setAmountPaid(float amountPaid) {
 		this.amountPaid = amountPaid;
 	}
+	
+	
 
 	public Date getPaymentdate() {
-		return Paymentdate;
+		return paymentdate;
 	}
 
 	public void setPaymentdate(Date paymentdate) {
-		Paymentdate = paymentdate;
+		this.paymentdate = paymentdate;
 	}
 
 	public int getCreatedBy() {
@@ -81,10 +83,11 @@ public class BillPayment {
 
 	@Override
 	public String toString() {
-		return "billpayment [billpaymentId=" + billpaymentId + ", accountNumber=" + accountNumber + ", amountPaid="
-				+ amountPaid + ", Paymentdate=" + Paymentdate + ", createdBy=" + createdBy + ", createdDate="
+		return "BillPayment [billpaymentId=" + billpaymentId + ", accountNumber=" + accountNumber + ", amountPaid="
+				+ amountPaid + ", paymentdate=" + paymentdate + ", createdBy=" + createdBy + ", createdDate="
 				+ createdDate + "]";
 	}
+
 
 
 }

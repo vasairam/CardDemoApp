@@ -5,12 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.cg.CardDemoApplication.model.AccountCustomerRecord;
 import com.cg.CardDemoApplication.model.CreditCard;
 import com.cg.CardDemoApplication.model.User;
 import com.cg.CardDemoApplication.service.CreditCardService;
@@ -22,7 +24,7 @@ import jakarta.servlet.http.HttpSession;
 public class CreditCardController {
 	
 	@Autowired
-	private CreditCardService service;
+	private CreditCardService creditCardService;
 	
 	@RequestMapping(value="/viewCreditCard", method = RequestMethod.GET)
 	public String showViewCreditCardPage(ModelMap model, HttpSession session){
@@ -67,6 +69,8 @@ public class CreditCardController {
     	if(sessionUser!= null && sessionUserRole!= null) {
     		if(sessionUserRole.equalsIgnoreCase("user")) {
     			System.out.println("Session User Role : "+sessionUserRole);
+    			List<CreditCard> creditCards = creditCardService.findAllCreditCards();
+    			model.put("creditCardsData", creditCards);
     			return "listCreditCards";
     		} else {
     			System.out.println("Session User Role : "+sessionUserRole);
@@ -77,6 +81,14 @@ public class CreditCardController {
     	}
 
 	}
+	
+	 @RequestMapping(value = "/updateCreditCardDetails", method = RequestMethod.POST)
+     public String updateCreditCardDetails(@ModelAttribute("user")  CreditCard inputFormObject, HttpSession session){
+		 User sessionUser = (User) session.getAttribute("loggedInUser");
+		 System.out.println(inputFormObject.toString());
+		 creditCardService.saveCreditCardDetails(inputFormObject,sessionUser);     
+	     return "updateCreditCard";
+	 }	 	
 	
 	
 //	 @RequestMapping(value = "/find/{id}", method = RequestMethod.GET)

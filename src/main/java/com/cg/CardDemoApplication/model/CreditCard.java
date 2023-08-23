@@ -13,7 +13,7 @@ import jakarta.persistence.Table;
 @Table(name="CREDITCARD")
 public class CreditCard {
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "creditcardId")
     private int creditcardId;
 
@@ -29,11 +29,17 @@ public class CreditCard {
     @Column(name = "isCardInActive")
     private boolean isCardInActive;
     
+    @Column(name = "accountNumber")
+    private String accountNumber;
+    
     @Column(name = "updatedBy")
-    private int creditLimit;
+    private int updatedBy;
 
     @Column(name = "updatedDate")
     private Date updatedDate;
+    
+    @Column(name = "cvv")
+    private int cvv;
 
 	public int getCreditcardId() {
 		return creditcardId;
@@ -75,13 +81,6 @@ public class CreditCard {
 		this.isCardInActive = isCardInActive;
 	}
 
-	public int getCreditLimit() {
-		return creditLimit;
-	}
-
-	public void setCreditLimit(int creditLimit) {
-		this.creditLimit = creditLimit;
-	}
 
 	public Date getUpdatedDate() {
 		return updatedDate;
@@ -91,12 +90,40 @@ public class CreditCard {
 		this.updatedDate = updatedDate;
 	}
 
-	@Override
-	public String toString() {
-		return "creditcard [creditcardId=" + creditcardId + ", creditcardNumber=" + creditcardNumber + ", cardExpiry="
-				+ cardExpiry + ", nameOntheCard=" + nameOntheCard + ", isCardInActive=" + isCardInActive
-				+ ", creditLimit=" + creditLimit + ", updatedDate=" + updatedDate + "]";
+	public String getAccountNumber() {
+		return accountNumber;
 	}
 
+	public void setAccountNumber(String accountNumber) {
+		this.accountNumber = accountNumber;
+	}
+
+	public int getCvv() {
+		return cvv;
+	}
+
+	public void setCvv(int cvv) {
+		this.cvv = cvv;
+	}
+	
+	
+
+	public int getUpdatedBy() {
+		return updatedBy;
+	}
+
+	public void setUpdatedBy(int updatedBy) {
+		this.updatedBy = updatedBy;
+	}
+
+	@Override
+	public String toString() {
+		return "CreditCard [creditcardId=" + creditcardId + ", creditcardNumber=" + creditcardNumber + ", cardExpiry="
+				+ cardExpiry + ", nameOntheCard=" + nameOntheCard + ", isCardInActive=" + isCardInActive
+				+ ", accountNumber=" + accountNumber + ", updatedBy=" + updatedBy + ", updatedDate=" + updatedDate
+				+ ", cvv=" + cvv + "]";
+	}
+
+	
 
 }

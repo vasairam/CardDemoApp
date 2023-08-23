@@ -26,7 +26,7 @@ public class AccountController {
 	@Autowired
 	AccountService aService;
 	
-	
+
 	@RequestMapping(value="/viewAccount", method = RequestMethod.GET)
 	public String showViewAccountPage(ModelMap model, HttpSession session){
 		String sessionUserRole = (String) session.getAttribute("userRole");
