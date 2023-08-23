@@ -318,7 +318,33 @@ com.cg.CardDemoApplication.model
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
-                      <tr>
+                    <%  ArrayList<CreditCard> data =  (ArrayList)request.getAttribute("creditCardsData");;									    
+                        for(int i=0;i<data.size();i++) {%>                          
+                        <tr>
+                          <td><%=data.get(i).getAccountNumber()%></td>
+                          <td><%=data.get(i).getCreditcardNumber()%></td>
+
+                          <% if(data.get(i).isCardInActive() == true) {%>
+                            <td><span class="badge bg-label-success me-1">Active</span></td>
+                          <%}
+                          else{%>
+                            <td><span class="badge bg-label-warning me-1">InActive</span></td>
+                            <%}%>
+                          <td>
+                              <div class="dropdown">
+                                 <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                   <i class="ti ti-dots-vertical"></i>
+                                 </button>
+                                 <div class="dropdown-menu">
+                                   <a class="dropdown-item" href="javascript:void(0);"
+                                     ><i class="ti ti-pencil me-1"></i> Edit</a>
+                                   </div>
+                              </div>
+                          </td>                      
+                        </tr>
+                    <%}%>
+                      
+                      <!-- <tr>
                         <td>231259887321</td>
 						<td>894973408472</td>
 						<td><span class="badge bg-label-warning me-1">InActive</span></td>
@@ -397,7 +423,7 @@ com.cg.CardDemoApplication.model
                               </div>
                           </div>
                         </td>
-                      </tr>
+                      </tr> -->
                                           </tbody>
                   </table>
                 </div>

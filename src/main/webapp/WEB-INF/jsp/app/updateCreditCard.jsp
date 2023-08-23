@@ -65,6 +65,97 @@ com.cg.CardDemoApplication.model
     <!-- <script src="../assets/vendor/js/template-customizer.js"></script> -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../assets/js/config.js"></script>
+    <script>  
+        function updateCreditCard() {
+            const form = document.getElementById("viewCreditCard");
+            // var accountNumber=document.getElementById("accountNumber").value;
+            // console.log(accountNumber);
+            var request = new XMLHttpRequest();
+            var data = new FormData(form);
+            request.open("POST","/updateCreditCardDetails");  
+            request.send(data);
+            // Response
+            request.onreadystatechange = function () {
+                if (this.readyState == 4 
+                    && this.status == 200) {
+                    alert("Details Updated Successfully...!");
+					form.reset();
+                }
+            }
+        }
+
+
+      function viewCreditCardUsingAccountNumber() {
+          var flag =false;
+          const form = document.getElementById("viewCreditCard");
+          var accountNumber=document.getElementById("accountNumber").value;
+          // console.log(accountNumber);
+
+          var request = new XMLHttpRequest();
+              request.open("GET","/accountnumber/find/"+accountNumber);
+              request.send();
+    
+              // Response
+              request.onreadystatechange = function () {
+          
+              if (this.readyState == 4 
+                  && this.status == 200) 
+              {
+                  var data=request.responseText;
+                  
+                  const myObj = JSON.parse(data);
+                  // console.log(myObj);
+                  document.getElementById('creditcardNumber').value=myObj.creditcardNumber;
+                  document.getElementById('nameOntheCard').value=myObj.nameOntheCard;
+                  document.getElementById('cardExpiry').value=myObj.cardExpiry;
+
+              }
+              else
+                  if(this.status == 403&&flag==false)
+                  {
+                    flag=true;
+                    alert("Account Number Not Found....!");
+                    //break;
+                  }
+              }                   
+      }
+
+      function viewCreditCardUsingCardNumber(){
+        var flag =false;
+          const form = document.getElementById("viewCreditCard");
+          var creditcardNumber=document.getElementById("creditcardNumber").value;
+     
+          var request = new XMLHttpRequest();
+          request.open("GET","/creditcardnumber/find/"+creditcardNumber);
+          request.send();
+
+          // Response
+          request.onreadystatechange = function () {
+      
+          if (this.readyState == 4 
+              && this.status == 200) 
+          {
+              var data=request.responseText;
+              
+              const myObj = JSON.parse(data);
+              //alert(myObj.role);
+              // console.log(myObj);
+              document.getElementById('accountNumber').value=myObj.accountNumber;
+              document.getElementById('nameOntheCard').value=myObj.nameOntheCard;
+              document.getElementById('cardExpiry').value=myObj.cardExpiry;
+          }
+          else
+              if(this.status == 403&&flag==false)
+              {
+                flag=true;
+                alert("Account Number Not Found....!");
+                //break;
+              }
+          }              
+      }
+
+  </script>
+
   </head>
 
   <body>
@@ -305,7 +396,7 @@ com.cg.CardDemoApplication.model
                   <div class="card">
                    
                     <div class="card-body">
-                      <form id="formValidationExamples" class="row g-3">
+                      <form id="viewCreditCard" class="row g-3">
                         <!-- Account Details -->
 
                         <div class="col-12">
@@ -320,7 +411,7 @@ com.cg.CardDemoApplication.model
                           class="form-control"
                           placeholder="Account Number.."
                           aria-label="Account Number..."
-                          aria-describedby="basic-addon-search31" />
+                          aria-describedby="basic-addon-search31"  name="accountNumber" id="accountNumber" onblur="return viewCreditCardUsingAccountNumber()" />
                       </div>
 					  </div>
 					  <div class="col-md-6">
@@ -331,7 +422,7 @@ com.cg.CardDemoApplication.model
                           class="form-control"
                           placeholder="Credit Card Number.."
                           aria-label="Credit Card Number..."
-                          aria-describedby="basic-addon-search31" />
+                          aria-describedby="basic-addon-search31"  name="creditcardNumber" id="creditcardNumber" onblur="return viewCreditCardUsingCardNumber()" />
                       </div>
 					  </div>
 					  
@@ -340,9 +431,9 @@ com.cg.CardDemoApplication.model
                           <input
                             class="form-control"
                             type="text"
-                            id="nameonthecard"
-                            name="nameOnTheCard"
-                            placeholder="Naveen "
+                            id="nameOntheCard"
+                            name="nameOntheCard"
+                            placeholder="Name"
 							
 							/>
                         </div>
@@ -353,22 +444,22 @@ com.cg.CardDemoApplication.model
                           <input
                             class="form-control"
                             type="datetime"
-                            id="expirydate"
-                            name="expiryDate"
+                            id="cardExpiry"
+                            name="cardExpiry"
                             placeholder="12-4-2028"
 							
 							/>
                         </div>
                         
                         <div class="col-md-2">
-						<label class="form-label" >Account Status</label>
+						                <label class="form-label" >Account Status</label>
                           <div class="form-check form-switch">
                         <input
                           class="form-check-input"
                           type="checkbox"
                           id="flexSwitchCheckCheckedDisabled"
                           checked
-                          />
+                          disabled />
                         <label class="form-check-label" for="flexSwitchCheckCheckedDisabled"
                           >ACTIVE</label
                         >
@@ -376,11 +467,11 @@ com.cg.CardDemoApplication.model
  
                         </div>
 						
-					<div class="col-4">		
-                          <button type="submit" name="submitButton" class="btn btn-primary">Update Credit Card</button>
-                        </div>
+                      <div class="col-4">		  
+                        <button type="button"  onclick="return updateCreditCard()" name="submitButton"  class="btn btn-primary">Update Credit Card</button>
+                      </div>
                        
-                       </form>
+                       </form>                       
                     </div>
                   </div>
                 </div>

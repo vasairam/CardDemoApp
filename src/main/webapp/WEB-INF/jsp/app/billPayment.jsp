@@ -66,77 +66,73 @@ com.cg.CardDemoApplication.model
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../assets/js/config.js"></script>
 	<script>
-	  function updateAccount() {
-       // alert("called");
-   var confirm1=confirm('Are you sure you want to delete?');
-			if(confirm1==true){
-            // Request
-            const form = document.getElementById("deleteUser");
+
+        function confirmAction() {
+            var confirmed = confirm("Do you want to pay your balance?");
+            if (confirmed) {
+                updateBillPayment();                
+            } else {
+                // User cancelled, do nothing or handle cancellation
+                const form = document.getElementById("updateBillPayment");
+                alert("Action cancelled.");
+                form.reset();
+            }
+        }
+        
+        function updateBillPayment() {
+          
+            const form = document.getElementById("updateBillPayment");
             var request = new XMLHttpRequest();
             var data = new FormData(form);
-            request.open("POST","/deleteUserPOST");
+            request.open("POST","/updateBillPayment");
+            console.log(data);
             request.send(data);
-			
+  
             // Response
             request.onreadystatechange = function () {
                 if (this.readyState == 4 
                     && this.status == 200) {
-                    alert("User Deleted Successfully...!");
-					form.reset();
+                    alert("Details Updated Successfully...!");
+					          form.reset();
                 }
             }
         }
-	  }
-	 
-        function fetchAccount() {
-       // alert("called");
-         var flag =false;
-            // Request
-            const form = document.getElementById("updateAccount");
-			 var username=document.getElementById("accountname").value;
-			 
-			
-            var request = new XMLHttpRequest();
-            request.open("GET","/user/find/email/"+username);
-            request.send();
-  
-            // Response
-            request.onreadystatechange = function () {
-				
-                if (this.readyState == 4 
-                    && this.status == 200) {
-						var data=request.responseText;
-						
-						const myObj = JSON.parse(data);
-						document.getElementById('firstname').value=myObj.firstName;
-						document.getElementById('lastname').value=myObj.lastName;
-						document.getElementById('password').value=myObj.password;
-						var select = document.getElementById('role');
-                        var option; 
-						for (var i=0; i<select.options.length; i++) {
-						option = select.options[i];
 
-						if (option.text == myObj.role) {
-  
-                     option.setAttribute('selected', true);
 
-                                         
-                       } 
-                       }
-				
-                }
-				else
-					if(this.status == 403&&flag==false)
-					{
-						flag=true;
-				alert("No User Name Found....!");
-				//break;
-					}
-					
-			}
-            }
-        
-    </script>
+      function viewCurrentBalance() {
+       var flag =false;
+          // Request
+          const form = document.getElementById("updateBillPayment");
+          var accountNumber=document.getElementById("accountNumber").value;
+     
+          var request = new XMLHttpRequest();
+          request.open("GET","/viewBillPayment/"+accountNumber);
+          request.send();
+
+          // Response
+          request.onreadystatechange = function () {
+      
+          if (this.readyState == 4 
+              && this.status == 200) 
+          {
+              var data=request.responseText;              
+              const myObj = JSON.parse(data);
+              console.log(myObj);
+              //alert(myObj.role);
+              document.getElementById('currentBalance').value=myObj.currentBalance;
+          }
+          else
+              if(this.status == 403&&flag==false)
+              {
+                flag=true;
+                alert("Account Number Not Found....!");
+                //break;
+              }
+          }              
+      }
+
+
+  </script>
   </head>
 
   <body>
@@ -377,7 +373,7 @@ com.cg.CardDemoApplication.model
                    
             </li>
                     <div class="card-body">
-                      <form id="formValidationExamples" class="row g-3">
+                      <form id="updateBillPayment" class="row g-3" action="#">
                         <!-- Account Details -->
 
                         <div class="col-12">
@@ -388,34 +384,35 @@ com.cg.CardDemoApplication.model
                         <div class="input-group input-group-merge">
                         <span class="input-group-text" id="basic-addon-search31"><i class="ti ti-search"></i></span>
                         <input
-						  name="accountName"
-						  id="accountname"
+						  name="accountNumber"
+						  id="accountNumber"
                           type="text"
                           class="form-control"
                           placeholder="Account Number.."
                           aria-label="Account Number..."
-                          aria-describedby="basic-addon-search31" />
+                          aria-describedby="basic-addon-search31"
+                          onblur="return viewCurrentBalance()" />
                       </div>
                            
 						</div>
                          <div class="col-md-4">
-                          <label class="form-label" >Credit Limit</label>
+                          <label class="form-label" >Current Balance</label>
                           <input
                             class="form-control"
                             type="text"
-                            id="creditlimit"
-                            name="creditLimit"
+                            id="currentBalance"
+                            name="currentBalance"
                             placeholder=""
 							
 							/>
                         </div>
 						<div class="col-md-4">
-                          <label class="form-label" >Current Due</label>
+                          <label class="form-label" >Paying Amount</label>
                           <input
                             class="form-control"
                             type="text"
-                            id="current due"
-                            name="due"
+                            id="amountPaid"
+                            name="amountPaid"
                             placeholder="10,000-00"
 							
 							/>
@@ -427,7 +424,7 @@ com.cg.CardDemoApplication.model
                         
 					  </div>
 					  <div class="col-12">
-                          <button type="submit" name="submitButton" class="btn btn-primary">Pay</button>
+                          <button type="button" onclick="return confirmAction()" name="submitButton" class="btn btn-primary">Pay</button>
                         </div>
 
                        </form>
