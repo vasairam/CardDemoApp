@@ -13,8 +13,10 @@ import com.cg.CardDemoApplication.model.BillPayment;
 import com.cg.CardDemoApplication.model.CreditCard;
 import com.cg.CardDemoApplication.model.Customer;
 import com.cg.CardDemoApplication.model.User;
+import com.cg.CardDemoApplication.model.Transactions;
 import com.cg.CardDemoApplication.repository.CustomerRepository;
 import com.cg.CardDemoApplication.service.AccountService;
+import com.cg.CardDemoApplication.service.TransactionService;
 import com.cg.CardDemoApplication.service.CreditCardService;
 import com.cg.CardDemoApplication.service.CustomerService;
 import com.cg.CardDemoApplication.service.UserService;
@@ -28,16 +30,19 @@ public class DataFetchController {
 	private AccountService accountService;
 	private CustomerService customerService;
 	private CreditCardService creditCardService;
+	private TransactionService transactionService;
 	
 	@Autowired
     public DataFetchController(UserService userService,
     						AccountService accountService, 
     						CustomerService customerService,
-    						CreditCardService creditCardService){
+    						CreditCardService creditCardService,
+    						TransactionService transactionService){
         this.userService = userService;
         this.accountService = accountService;
         this.customerService = customerService;
         this.creditCardService = creditCardService;
+        this.transactionService = transactionService;
     }
 
 	
@@ -86,7 +91,10 @@ public class DataFetchController {
 	  public CreditCard viewCardNumber(@PathVariable("creditCardNumber") String creditCardNumber){
 		  return creditCardService.getCreditCardUsingCardNumber(creditCardNumber);
 	  }
-
+	  @RequestMapping(value = "/transactionid/find/{transactionid}", method = RequestMethod.GET)
+	  public Transactions viewTransaction(@PathVariable("transactionid")String transactionid) {
+		  return transactionService.gettransactionusingID(transactionid);
+	  }
 	
 	
 }

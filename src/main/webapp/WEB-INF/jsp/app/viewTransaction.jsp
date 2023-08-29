@@ -65,6 +65,52 @@ com.cg.CardDemoApplication.model
     <!-- <script src="../assets/vendor/js/template-customizer.js"></script> -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../assets/js/config.js"></script>
+    <script>
+      function viewtransactionusingID(){
+        var flag =false;
+          const form = document.getElementById("viewTransaction");
+          var transactionid=document.getElementById("transactionID").value;
+          console.log(transactionid);
+          var request = new XMLHttpRequest();
+          request.open("GET","/transactionid/find/"+transactionid);
+          request.send();
+
+          // Response
+          request.onreadystatechange = function () {
+      
+          if (this.readyState == 4 
+              && this.status == 200) 
+          {
+              var data=request.responseText;
+              
+              const myObj = JSON.parse(data);
+              //alert(myObj.role);
+               console.log(myObj);
+              document.getElementById('transactionID').value=myObj.transactionId;
+              document.getElementById('cardNumber').value=myObj.creditCardNumber;
+              document.getElementById('typeCd').value=myObj.typeCD;
+              document.getElementById('categoryCd').value=myObj.categoryCD;
+              document.getElementById('source').value=myObj.source;
+              document.getElementById('description').value=myObj.description;
+              document.getElementById('amount').value=myObj.amount;
+              document.getElementById('origDate').value=myObj.originDate;
+              document.getElementById('procDate').value=myObj.processingDate;              
+              document.getElementById('merchantID').value=myObj.merchantId;
+              document.getElementById('merchantName').value=myObj.merchantName;              
+              document.getElementById('merchantCity').value=myObj.merchantCity;
+              document.getElementById('merchantZip').value=myObj.merchantZip;
+          }
+          else
+              if(this.status == 403&&flag==false)
+              {
+                flag=true;
+                alert("Account Number Not Found....!");
+                //break;
+              }
+          }              
+      }
+
+    </script>
   </head>
 
   <body>
@@ -306,38 +352,39 @@ com.cg.CardDemoApplication.model
                    
             </li>
                     <div class="card-body">
-                      <form id="formValidationExamples" class="row g-3">
+                      <form id="viewTransaction" class="row g-3">
                         <!-- Account Details -->
 
                         <div class="col-12">
-                          <h6 class="fw-semibold">1. Transaction Details</h6>
+                          <h6 class="fw-semibold">Transaction Details</h6>
                           <hr class="mt-0" />
                         </div>
 
                         
                         <div class="col-md-6">
-                          <label class="form-label" >Account Number</label>
-                          <input
-                            class="form-control"
-                            type="text"
-                            id="accountNumber"
-                            name="accountNumber"
-                            placeholder="12345678"
-							
-							/> 
-							
+                          <div class="input-group input-group-merge">
+                            <span class="input-group-text" id="basic-addon-search31"><i class="ti ti-search"></i></span>                              
+                              <input
+                                class="form-control"
+                                type="text"
+                                id="transactionID"
+                                name="transactionID"
+                                placeholder="Transaction ID"
+                                aria-label="Transaction ID"
+                                aria-describedby="basic-addon-search31" onblur="return viewtransactionusingID()"  />
+                            </div>
                         </div> 
 						<div class="col-md-5">
-						
-                          <label class="form-label" >  / Card Number</label>
+                        <div class="input-group input-group-merge">
+                        <span class="input-group-text"></span>  
+                          <!--<label class="form-label" >Card Number</label>-->
                           <input
                             class="form-control"
                             type="text"
                             id="cardNumber"
                             name="cardNumber"
-                            placeholder="123245415"
-							
-							/>
+                            placeholder="Credict Card Number"/>
+                          </div>
                         </div>
                         <div class="col-md-4">
                           <label class="form-label" >TYPE CD</label>
@@ -346,7 +393,9 @@ com.cg.CardDemoApplication.model
                             type="text"
                             id="typeCd"
                             name="typeCd"
-                            placeholder="ASC"
+                            placeholder="Type CD"
+                            readonly
+
 							
 							/>
                         </div>
@@ -359,7 +408,8 @@ com.cg.CardDemoApplication.model
                             type="text"
                             id="categoryCd"
                             name="categoryCd"
-                            placeholder="HSJS"
+                            placeholder="Category CD"
+                            readonly
 							
 							/>
                         </div>
@@ -371,7 +421,8 @@ com.cg.CardDemoApplication.model
                             type="text"
                             id="source"
                             name="source"
-                            placeholder="Test"
+                            placeholder="Source"
+                            readonly
 							
 							/>                        
 						</div>
@@ -382,7 +433,8 @@ com.cg.CardDemoApplication.model
                             type="text"
                             id="description"
                             name="description"
-                            placeholder="Test Test"
+                            placeholder="Description"
+                            readonly
 							
 							/>
                         </div>
@@ -393,7 +445,8 @@ com.cg.CardDemoApplication.model
                             type="text"
                             id="amount"
                             name="amount"
-                            placeholder="10,000-00"
+                            placeholder="Amount"
+                            readonly
 							
 							/>
                         </div>
@@ -404,18 +457,19 @@ com.cg.CardDemoApplication.model
                             type="datetime"
                             id="origDate"
                             name="OrigDate"
-                            placeholder="12-05-2023"
-							
+                            placeholder="Origin Date"
+                            readonly
 							/>
                         </div>
 						<div class="col-md-4">
-                          <label class="form-label" >Proc Date</label>
+                          <label class="form-label" >Processing Date</label>
                           <input
                             class="form-control"
                             type="datetime"
                             id="procDate"
                             name="procDate"
-                            placeholder="12-05-2023"
+                            placeholder="Processing Date"
+                            readonly
 							
 							/>
                         </div>
@@ -426,7 +480,8 @@ com.cg.CardDemoApplication.model
                             type="text"
                             id="merchantID"
                             name="merchantID"
-                            placeholder="001092"
+                            placeholder="Merchant Id"
+                            readonly
 							
 							/>
                         </div>
@@ -437,8 +492,8 @@ com.cg.CardDemoApplication.model
                             type="text"
                             id="merchantName"
                             name="merchantName"
-                            placeholder="Simpolo Cermanics."
-							
+                            placeholder="Merchant Name"
+                            readonly
 							/>
                         </div>
 						<div class="col-md-4">
@@ -448,7 +503,8 @@ com.cg.CardDemoApplication.model
                             type="text"
                             id="merchantCity"
                             name="merchantCity"
-                            placeholder="IRVING"
+                            placeholder="Merchant City"
+                            readonly
 							
 							/>
                         </div>
@@ -459,15 +515,16 @@ com.cg.CardDemoApplication.model
                             type="text"
                             id="merchantZip"
                             name="merchantZip"
-                            placeholder="500085"
+                            placeholder="Merchant Zip"
+                            readonly
 							
 							/>
                         </div>
 						
 					  </div>
-					  <div class="col-12">
+					  <!--<div class="col-12">
                           <button type="submit" name="submitButton" class="btn btn-primary">ADD Transaction</button>
-                        </div>
+                        </div>-->
 
                        </form>
                     </div>
