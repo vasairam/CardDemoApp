@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html>600px
 <%@ page import="java.util.*" %>
 <%@ page import="com.cg.CardDemoApplication.model.*" %>
 com.cg.CardDemoApplication.model
@@ -16,7 +16,33 @@ com.cg.CardDemoApplication.model
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
+   <style>
+     .card{
+      width: 800px;
+      height: 200px;
+     }
+     .form-label{
+      margin-left: 100px;
+     }
+     .card-body{
+      margin-left: 70px;
+     }
+     .form-control{
+      margin-left: 95px;
+      
+     }
+     .btn-text{
+      text-align: center;
+      margin-bottom: 25px;
+     }
+     .col-md-4{
+      margin-bottom: 25px;
+     }
+     .avatar avatar-online{
+      margin-down: 26px;
+     }
 
+   </style>
     <title>Bill Payment | Card Demo </title>
 
     <meta name="description" content="" />
@@ -381,7 +407,7 @@ com.cg.CardDemoApplication.model
                         <!-- Account Details -->
 
                         <div class="col-12">
-                          <h6 class="fw-semibold">1. Account Details</h6>
+                          <h6 class="fw-semibold"> Account Details</h6>
                           <hr class="mt-0" />
                         </div>
 
@@ -419,6 +445,9 @@ com.cg.CardDemoApplication.model
                             placeholder="10,000-00"
 							
 							/>
+              </div>
+                        <div class="btn-text">
+                          <button type="submit" name="submitButton" class="btn btn-primary">Pay</button>
                         </div>
 						
                         </div>
@@ -426,9 +455,9 @@ com.cg.CardDemoApplication.model
 
                         
 					  </div>
-					  <div class="col-12">
+					  <!-- <div class="col-12">
                           <button type="submit" name="submitButton" class="btn btn-primary">Pay</button>
-                        </div>
+                        </div> -->
 
                        </form>
                     </div>
