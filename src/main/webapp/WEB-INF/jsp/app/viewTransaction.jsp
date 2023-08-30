@@ -16,7 +16,6 @@ com.cg.CardDemoApplication.model
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
-
     <title>View Transaction | Card Demo </title>
 
     <meta name="description" content="" />
@@ -136,7 +135,7 @@ com.cg.CardDemoApplication.model
 
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
           <div class="app-brand demo">
-            <a href="index.html" class="app-brand-link">
+            <a href="#" class="app-brand-link">
               <span class="app-brand-logo demo">
                 <img src="../assets/img/branding/logo-img.png" alt="" title="" width="50"/>
               </span>
