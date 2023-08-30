@@ -326,24 +326,14 @@ com.cg.CardDemoApplication.model
                           <td><%=data.get(i).getTransactionId()%></td>
                           <td><%=data.get(i).getOriginDate()%></td>
                           <td><%=data.get(i).getDescription()%></td>
-                          <td><% if(data.get(i).getSource().trim().equals("POS TERM")) {%>
-                            +
-                          <%}
-                          else{%>
-                            -
-                            <%}%>                            
-                            <%=data.get(i).getAmount()%></td>
+                          <td><% if(data.get(i).getSource().trim().equals("POS TERM")) {%>+<%}
+                          else{%>-<%}%><%=data.get(i).getAmount()%></td>
                           <td>
-                              <div class="dropdown">
-                                 <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                                   <i class="ti ti-dots-vertical"></i>
-                                 </button>
-                                 <div class="dropdown-menu">
-                                   <a class="dropdown-item" href="javascript:void(0);"
-                                     ><i class="ti ti-pencil me-1"></i> View</a>
-                                   </div>
-                              </div>
-                          </td>                      
+                              <a  href="/viewTransaction?transactionid=<%=data.get(i).getTransactionId()%>">
+                                <i class="ti ti-pencil me-1"></i>
+                                View
+                              </a>
+                          </td>                                               
                         </tr>
                     <%}%>
 

@@ -66,12 +66,15 @@ com.cg.CardDemoApplication.model
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../assets/js/config.js"></script>
     <script>
-      function viewtransactionusingID(){
-        var flag =false;
-          const form = document.getElementById("viewTransaction");
-          var transactionid=document.getElementById("transactionID").value;
-          console.log(transactionid);
-          var request = new XMLHttpRequest();
+      if(window.location.search){
+        const urlParams = new URLSearchParams(window.location.search);
+        var transactionid=urlParams.get('transactionid');
+        // console.log(transactionid);
+        getDataUsingTransactionID(transactionid);
+      }
+
+      function getDataUsingTransactionID(transactionid){
+        var request = new XMLHttpRequest();
           request.open("GET","/transactionid/find/"+transactionid);
           request.send();
 
@@ -85,14 +88,18 @@ com.cg.CardDemoApplication.model
               
               const myObj = JSON.parse(data);
               //alert(myObj.role);
-               console.log(myObj);
+              //  console.log(myObj);
               document.getElementById('transactionID').value=myObj.transactionId;
               document.getElementById('cardNumber').value=myObj.creditCardNumber;
               document.getElementById('typeCd').value=myObj.typeCD;
               document.getElementById('categoryCd').value=myObj.categoryCD;
               document.getElementById('source').value=myObj.source;
               document.getElementById('description').value=myObj.description;
-              document.getElementById('amount').value=myObj.amount;
+              if(myObj.source.trim() == 'POS TERM'){
+                document.getElementById('amount').value='+'+myObj.amount;
+              }else{
+                document.getElementById('amount').value='-'+myObj.amount;
+              }      
               document.getElementById('origDate').value=myObj.originDate;
               document.getElementById('procDate').value=myObj.processingDate;              
               document.getElementById('merchantID').value=myObj.merchantId;
@@ -107,7 +114,15 @@ com.cg.CardDemoApplication.model
                 alert("Account Number Not Found....!");
                 //break;
               }
-          }              
+          }      
+      }
+
+      function viewtransactionusingID(){
+        var flag =false;
+          const form = document.getElementById("viewTransaction");
+          var transactionid=document.getElementById("transactionID").value;
+          console.log(transactionid);
+          getDataUsingTransactionID(transactionid);          
       }
 
     </script>

@@ -65,14 +65,18 @@ com.cg.CardDemoApplication.model
     <!-- <script src="../assets/vendor/js/template-customizer.js"></script> -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../assets/js/config.js"></script>
-    <script>  
-      function viewCreditCardUsingAccountNumber() {
-          var flag =false;
-          const form = document.getElementById("viewCreditCard");
-          var accountNumber=document.getElementById("accountNumber").value;
-          // console.log(accountNumber);
+    <script>
+      
+      if(window.location.search){
+        const urlParams = new URLSearchParams(window.location.search);
+        var accountNumber=urlParams.get('accountNumber');
+        getDataUsingAccountNumber(accountNumber);
+      }
 
-          var request = new XMLHttpRequest();
+
+      function getDataUsingAccountNumber(accountNumber){
+
+              var request = new XMLHttpRequest();
               request.open("GET","/accountnumber/find/"+accountNumber);
               request.send();
     
@@ -86,6 +90,7 @@ com.cg.CardDemoApplication.model
                   
                   const myObj = JSON.parse(data);
                   // console.log(myObj);
+                  document.getElementById("accountNumber").value=accountNumber;
                   document.getElementById('creditcardNumber').value=myObj.creditcardNumber;
                   document.getElementById('nameOntheCard').value=myObj.nameOntheCard;
                   document.getElementById('cardExpiry').value=myObj.cardExpiry;
@@ -98,7 +103,15 @@ com.cg.CardDemoApplication.model
                     alert("Account Number Not Found....!");
                     //break;
                   }
-              }                   
+              }       
+      }
+    
+      function viewCreditCardUsingAccountNumber() {
+          var flag =false;
+          const form = document.getElementById("viewCreditCard");
+          var accountNumber=document.getElementById("accountNumber").value;
+          // console.log(accountNumber);          
+          getDataUsingAccountNumber(accountNumber);                       
       }
 
       function viewCreditCardUsingCardNumber(){
@@ -384,13 +397,13 @@ com.cg.CardDemoApplication.model
                         </div>
                         <div class="col-md-6">
                         <div class="input-group input-group-merge">
-                        <span class="input-group-text" id="basic-addon-search31"><i class="ti ti-search"></i></span>
+                        <span class="input-group-text" id="basic-addon-search31"><i class="ti ti-search"></i></span> 
                         <input
                           type="text"
                           class="form-control"
                           placeholder="Account Number.."
                           aria-label="Account Number..."
-                          aria-describedby="basic-addon-search31"  name="accountNumber" id="accountNumber" onblur="return viewCreditCardUsingAccountNumber()" />
+                          aria-describedby="basic-addon-search31"  name="accountNumber" id="accountNumber"  onblur="return viewCreditCardUsingAccountNumber()" />
                       </div>
 					  </div>
 					  <div class="col-md-6">
@@ -444,10 +457,7 @@ com.cg.CardDemoApplication.model
                         >
                       </div>
  
-                        </div>
-						
-
-                       
+                        </div>					                       
                        </form>
                     </div>
                   </div>

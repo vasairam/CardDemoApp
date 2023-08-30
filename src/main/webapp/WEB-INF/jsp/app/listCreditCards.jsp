@@ -318,7 +318,7 @@ com.cg.CardDemoApplication.model
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
-                    <%  ArrayList<CreditCard> data =  (ArrayList)request.getAttribute("creditCardsData");;									    
+                    <%  ArrayList<CreditCard> data =  (ArrayList)request.getAttribute("creditCardsData");									    
                         for(int i=0;i<data.size();i++) {%>                          
                         <tr>
                           <td><%=data.get(i).getAccountNumber()%></td>
@@ -331,17 +331,12 @@ com.cg.CardDemoApplication.model
                             <td><span class="badge bg-label-warning me-1">InActive</span></td>
                             <%}%>
                           <td>
-                              <div class="dropdown">
-                                 <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                                   <i class="ti ti-dots-vertical"></i>
-                                 </button>
-                                 <div class="dropdown-menu">
-                                   <a class="dropdown-item" href="javascript:void(0);"
-                                     ><i class="ti ti-pencil me-1"></i> Edit</a>
-                                   </div>
-                              </div>
-                          </td>                      
-                        </tr>
+                              <a  href="/viewCreditCard?accountNumber=<%=data.get(i).getAccountNumber()%>">
+                                <i class="ti ti-pencil me-1"></i>
+                                View
+                              </a>
+                          </td>        
+                        </tr>                        
                     <%}%>
                       
                       <!-- <tr>
