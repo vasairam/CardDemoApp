@@ -2,15 +2,19 @@ package com.cg.CardDemoApplication.controller;
 
 import java.util.List;
 
+
+import com.cg.CardDemoApplication.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.cg.CardDemoApplication.model.AccountCustomerRecord;
 import com.cg.CardDemoApplication.model.Transactions;
 import com.cg.CardDemoApplication.model.User;
 import com.cg.CardDemoApplication.service.TransactionService;
@@ -69,6 +73,9 @@ public class TransactionController {
     	if(sessionUser!= null && sessionUserRole!= null) {
     		if(sessionUserRole.equalsIgnoreCase("user")) {
     			System.out.println("Session User Role : "+sessionUserRole);
+    			List <Transactions> transactions = service.findAllTransactions();
+    			System.out.println(transactions.toString());
+    			model.put("transactionsData", transactions);
     			return "listTransactions";
     		} else {
     			System.out.println("Session User Role : "+sessionUserRole);
@@ -94,6 +101,11 @@ public class TransactionController {
      public Transactions updateTransaction(Transactions transaction){
      return service.updateTransaction(transaction);
  }
-	 
+	 @RequestMapping(value = "/addtransactions", method = RequestMethod.POST)
+	 public String addtransactions (@ModelAttribute("user")  Transactions inputFormObject, HttpSession session){
+		 User sessionUser = (User) session.getAttribute("loggedInUser");
+		 service.addtransactions(inputFormObject,sessionUser);
+		 return "addtransaction";
+	 }
 
 }

@@ -1,5 +1,7 @@
 package com.cg.CardDemoApplication.service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,6 +16,9 @@ public class BillPaymentService {
 
 	@Autowired
 	BillPaymentRepository bRepo;
+	
+	@Autowired
+	AccountService accountService;
 	
 	public BillPaymentService(BillPaymentRepository tRepo) {
 		
@@ -34,10 +39,29 @@ public class BillPaymentService {
 		return bRepo.findAll();
 	}
 	
-	public BillPayment updateBillPayment(BillPayment billPayment) {
-		bRepo.save(billPayment);
+	public BillPayment updateBillPayment(BillPayment billPayment) {	
+		boolean flag = accountService.updateCurrentBalance(billPayment.getAccountNumber(),billPayment.getAmountPaid());
+		if(flag) {
+			BillPayment updateBillPayment = new BillPayment();
+			updateBillPayment.setAccountNumber(billPayment.getAccountNumber());
+			updateBillPayment.setAmountPaid(billPayment.getAmountPaid());
+			updateBillPayment.setPaymentdate((java.sql.Date) parseDate());
+			bRepo.save(updateBillPayment);
+		}
 		return billPayment;
 	}
+	
+	private Date parseDate() {
+	   	 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	   	 try {
+	   		 java.util.Date date = new java.util.Date();	            
+	            java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+	            return sqlDate;
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+			return null;
+		}
 
 
 }

@@ -1,6 +1,7 @@
 package com.cg.CardDemoApplication.service;
 
 import java.text.SimpleDateFormat;
+
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
@@ -124,6 +125,17 @@ public class AccountService {
 	        }
 			return null;
 		}
+
+	public boolean updateCurrentBalance(String accountNumber, float amountPaid) {		
+		Account userAccount = getAccountInfo(Integer.parseInt(accountNumber));
+		Float currentBalance = userAccount.getCurrentBalance();
+		if((currentBalance - amountPaid) >= 0) {
+			userAccount.setCurrentBalance((currentBalance - amountPaid));
+			return true;
+		}
+		return false;
+				
+	}
 	
 
 }

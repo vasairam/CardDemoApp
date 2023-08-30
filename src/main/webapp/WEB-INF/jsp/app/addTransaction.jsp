@@ -65,6 +65,87 @@ com.cg.CardDemoApplication.model
     <!-- <script src="../assets/vendor/js/template-customizer.js"></script> -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../assets/js/config.js"></script>
+    <script>
+      function viewCreditCardUsingAccountNumber() {
+          var flag =false;
+          const form = document.getElementById("viewCreditCard");
+          var accountNumber=document.getElementById("accountNumber").value;
+          // console.log(accountNumber);
+          var request = new XMLHttpRequest();
+              request.open("GET","/accountnumber/find/"+accountNumber);
+              request.send();    
+              // Response
+              request.onreadystatechange = function () {
+          
+              if (this.readyState == 4 
+                  && this.status == 200) 
+              {
+                  var data=request.responseText;                  
+                  const myObj = JSON.parse(data);
+                  // console.log(myObj);
+                  document.getElementById('creditCardNumber').value=myObj.creditcardNumber;
+              }
+              else
+                  if(this.status == 403&&flag==false)
+                  {
+                    flag=true;
+                    alert("Account Number Not Found....!");
+                    //break;
+                  }
+              }                   
+      }
+
+      function viewCreditCardUsingCardNumber(){
+        var flag =false;
+          const form = document.getElementById("viewCreditCard");
+          var creditcardNumber=document.getElementById("creditcardNumber").value;
+     
+          var request = new XMLHttpRequest();
+          request.open("GET","/creditcardnumber/find/"+creditcardNumber);
+          request.send();
+
+          // Response
+          request.onreadystatechange = function () {
+      
+          if (this.readyState == 4 
+              && this.status == 200) 
+          {
+              var data=request.responseText;
+              
+              const myObj = JSON.parse(data);
+              //alert(myObj.role);
+              // console.log(myObj);
+              document.getElementById('accountNumber').value=myObj.accountNumber;
+          }
+          else
+              if(this.status == 403&&flag==false)
+              {
+                flag=true;
+                alert("Account Number Not Found....!");
+                //break;
+              }
+          }              
+      }
+      function addtransaction() {
+            const form = document.getElementById("addtransaction");
+            var request = new XMLHttpRequest();
+            var data = new FormData(form);
+            request.open("POST","/addtransactions");
+            console.log(data);
+            request.send(data);
+            // alert("Transaction added Successfully...!");
+					  //         form.reset();
+            // Response
+            request.onreadystatechange = function () {
+                if (this.readyState == 4 
+                    && this.status == 200) {
+                    alert("Transaction added Successfully...!");
+					          form.reset();
+                }
+            }
+        }
+
+    </script>
   </head>
 
   <body>
@@ -306,47 +387,49 @@ com.cg.CardDemoApplication.model
                    
             </li>
                     <div class="card-body">
-                      <form id="formValidationExamples" class="row g-3">
+                      <form id="addtransaction" class="row g-3" action="#">
                         <!-- Account Details -->
 
                         <div class="col-12">
-                          <h6 class="fw-semibold">1. Transaction Details</h6>
+                          <h6 class="fw-semibold">Enter Transaction Details</h6>
                           <hr class="mt-0" />
                         </div>
 
                         
                         <div class="col-md-6">
-                          <label class="form-label" >Account Number</label>
+                          <div class="input-group input-group-merge">
+                            <span class="input-group-text" id="basic-addon-search31"><i class="ti ti-search"></i></span>                          
                           <input
                             class="form-control"
                             type="text"
                             id="accountNumber"
                             name="accountNumber"
-                            placeholder="12345678"
-							
-							/> 
-							
+                            placeholder="Enter the account number"
+                            aria-label="Transaction ID"
+                            aria-describedby="basic-addon-search31" onblur="return viewCreditCardUsingAccountNumber()"/> 
+                          </div>
                         </div> 
 						<div class="col-md-5">
-						
-                          <label class="form-label" >  / Card Number</label>
+                         <div class="input-group input-group-merge">
+                            <span class="input-group-text" id="basic-addon-search31"><i class="ti ti-search"></i></span>
                           <input
                             class="form-control"
                             type="text"
-                            id="cardNumber"
-                            name="cardNumber"
-                            placeholder="123245415"
-							
-							/>
+                            id="creditCardNumber"
+                            name="creditCardNumber"
+                            placeholder="Enter the card number"
+                            aria-label="Card Number"
+                            aria-describedby="basic-addon-search31" onblur="return viewCreditCardUsingCardNumber()"/>
+                          </div>
                         </div>
                         <div class="col-md-4">
                           <label class="form-label" >TYPE CD</label>
                          <input
                             class="form-control"
                             type="text"
-                            id="typeCd"
-                            name="typeCd"
-                            placeholder="ASC"
+                            id="typeCD"
+                            name="typeCD"
+                            placeholder="Type CD"
 							
 							/>
                         </div>
@@ -357,9 +440,9 @@ com.cg.CardDemoApplication.model
                           <input
                             class="form-control"
                             type="text"
-                            id="categoryCd"
-                            name="categoryCd"
-                            placeholder="HSJS"
+                            id="categoryCD"
+                            name="categoryCD"
+                            placeholder="Category CD"
 							
 							/>
                         </div>
@@ -371,7 +454,7 @@ com.cg.CardDemoApplication.model
                             type="text"
                             id="source"
                             name="source"
-                            placeholder="Test"
+                            placeholder="Source"
 							
 							/>                        
 						</div>
@@ -382,7 +465,7 @@ com.cg.CardDemoApplication.model
                             type="text"
                             id="description"
                             name="description"
-                            placeholder="Test Test"
+                            placeholder="Description"
 							
 							/>
                         </div>
@@ -393,29 +476,29 @@ com.cg.CardDemoApplication.model
                             type="text"
                             id="amount"
                             name="amount"
-                            placeholder="10,000-00"
+                            placeholder="Amount"
 							
 							/>
                         </div>
 						<div class="col-md-4">
-                          <label class="form-label" >Orig Date</label>
+                          <label class="form-label" >Origin Date</label>
                           <input
                             class="form-control"
-                            type="datetime"
-                            id="origDate"
-                            name="OrigDate"
-                            placeholder="12-05-2023"
+                            type="text"
+                            id="originDate"
+                            name="OriginDate"
+                            placeholder="yyyy-mm-dd"
 							
 							/>
                         </div>
 						<div class="col-md-4">
-                          <label class="form-label" >Proc Date</label>
+                          <label class="form-label" >Processing Date</label>
                           <input
                             class="form-control"
-                            type="datetime"
-                            id="procDate"
-                            name="procDate"
-                            placeholder="12-05-2023"
+                            type="text"
+                            id="processingDate"
+                            name="processingDate"
+                            placeholder="yyyy-mm-dd"
 							
 							/>
                         </div>
@@ -424,9 +507,9 @@ com.cg.CardDemoApplication.model
                           <input
                             class="form-control"
                             type="text"
-                            id="merchantID"
-                            name="merchantID"
-                            placeholder="001092"
+                            id="merchantId"
+                            name="merchantId"
+                            placeholder="Merchant Id"
 							
 							/>
                         </div>
@@ -437,18 +520,18 @@ com.cg.CardDemoApplication.model
                             type="text"
                             id="merchantName"
                             name="merchantName"
-                            placeholder="Simpolo Cermanics."
+                            placeholder="Merchant Name"
 							
 							/>
                         </div>
 						<div class="col-md-4">
                          <label class="form-label" >Merchant City</label>
-                          <input
+                          <input 
                             class="form-control"
                             type="text"
                             id="merchantCity"
                             name="merchantCity"
-                            placeholder="IRVING"
+                            placeholder="Merchant City"
 							
 							/>
                         </div>
@@ -459,14 +542,15 @@ com.cg.CardDemoApplication.model
                             type="text"
                             id="merchantZip"
                             name="merchantZip"
-                            placeholder="500085"
+                            placeholder="Merchant ZIP"
 							
 							/>
                         </div>
 						
 					  </div>
 					  <div class="col-12">
-                          <button type="submit" name="submitButton" class="btn btn-primary">ADD Transaction</button>
+                          <button type="button" onclick="return addtransaction()
+                          " name="submitButton" class="btn btn-primary">ADD Transaction</button>
                         </div>
 
                        </form>
