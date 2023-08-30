@@ -17,7 +17,7 @@ com.cg.CardDemoApplication.model
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>View Trasactions | Card Demo </title>
+    <title>List Trasactions | Card Demo </title>
 
     <meta name="description" content="" />
 
@@ -301,7 +301,7 @@ com.cg.CardDemoApplication.model
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-			<h4 class="fw-bold "><span class="text-muted fw-light">Transactions/</span> View Transactions</h4>
+			<h4 class="fw-bold "><span class="text-muted fw-light">Transactions/</span> List Transactions</h4>
              <!--<div class="row"> -->
 			  
                 <!-- Website Analytics -->
@@ -320,7 +320,34 @@ com.cg.CardDemoApplication.model
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
-                      <tr>
+                      <%  ArrayList<Transactions> data =  (ArrayList)request.getAttribute("transactionsData");;									    
+                        for(int i=0;i<data.size();i++) {%>                          
+                        <tr>
+                          <td><%=data.get(i).getTransactionId()%></td>
+                          <td><%=data.get(i).getOriginDate()%></td>
+                          <td><%=data.get(i).getDescription()%></td>
+                          <td><% if(data.get(i).getSource().trim().equals("POS TERM")) {%>
+                            +
+                          <%}
+                          else{%>
+                            -
+                            <%}%>                            
+                            <%=data.get(i).getAmount()%></td>
+                          <td>
+                              <div class="dropdown">
+                                 <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                   <i class="ti ti-dots-vertical"></i>
+                                 </button>
+                                 <div class="dropdown-menu">
+                                   <a class="dropdown-item" href="javascript:void(0);"
+                                     ><i class="ti ti-pencil me-1"></i> View</a>
+                                   </div>
+                              </div>
+                          </td>                      
+                        </tr>
+                    <%}%>
+
+                      <!-- <tr>
                         <td>231259887321</td>
 						<td>06/10/2023</td>
 						<td>Purchase at Gleason</td>
@@ -335,70 +362,8 @@ com.cg.CardDemoApplication.model
                                 ><i class="ti ti-pencil me-1"></i> View</a>
                               </div>
                           </div></td>
-                      </tr>
-					   <tr>
-                        <td>231259887321</td>
-						<td>06/10/2023</td>
-						<td>Purchase at Gleason</td>
-						 <td>83,000-00</td>
-						 <td>
-						 <div class="dropdown">
-                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                              <i class="ti ti-dots-vertical"></i>
-                            </button>
-                            <div class="dropdown-menu">
-                              <a class="dropdown-item" href="javascript:void(0);"
-                                ><i class="ti ti-pencil me-1"></i> View</a>
-                              </div>
-                          </div></td>
-                      </tr>					  <tr>
-                        <td>231259887321</td>
-						<td>06/10/2023</td>
-						<td>Purchase at Gleason</td>
-						 <td>83,000-00</td>
-						 <td>
-						 <div class="dropdown">
-                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                              <i class="ti ti-dots-vertical"></i>
-                            </button>
-                            <div class="dropdown-menu">
-                              <a class="dropdown-item" href="javascript:void(0);"
-                                ><i class="ti ti-pencil me-1"></i> View</a>
-                              </div>
-                          </div></td>
-                      </tr>
-					   <tr>
-                        <td>231259887321</td>
-						<td>06/10/2023</td>
-						<td>Purchase at Gleason</td>
-						 <td>83,000-00</td>
-						 <td>
-						 <div class="dropdown">
-                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                              <i class="ti ti-dots-vertical"></i>
-                            </button>
-                            <div class="dropdown-menu">
-                              <a class="dropdown-item" href="javascript:void(0);"
-                                ><i class="ti ti-pencil me-1"></i> View</a>
-                              </div>
-                          </div></td>
-                      </tr>
-<tr>
-                        <td>231259887321</td>
-						<td>06/10/2023</td>
-						<td>Purchase at Gleason</td>
-						 <td>83,000-00</td>
-						 <td>
-						 <div class="dropdown">
-                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                              <i class="ti ti-dots-vertical"></i>
-                            </button>
-                            <div class="dropdown-menu">
-                              <a class="dropdown-item" href="javascript:void(0);"
-                                ><i class="ti ti-pencil me-1"></i> View</a>
-                              </div>
-                          </div></td>
-                      </tr>                                          </tbody>
+                      </tr> -->
+                    </tbody>
                   </table>
                 </div>
               </div>

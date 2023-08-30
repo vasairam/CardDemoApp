@@ -6,33 +6,21 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+//@Data
+//@NoArgsConstructor
+//@AllArgsConstructor
+//@Entity
+//@Table(name = "Transactions")
+//@Builder
 @Entity
-@Table(name = "Transactions")
-@Builder
+@Table(name = "TRANSACTIONS")
 public class Transactions {
 	    @Id
-	
-	    @Column(name="transid")
-	    private Long id;
-
-	    @Column(name="transid")
-		public Long getId() {
-			return id;
-		}
-
-		public void setId(Long id) {
-			this.id = id;
-		}
-
-	@Column(name="transactionid")
+	    @Column(name="transID")
+	    private Long transID;
+//	    @Column(name="transID")
+	@Column(name="transactionID")
 	private String transactionId;
 	@Column(name="accountNumber")
 	private String accountNumber;
@@ -42,12 +30,12 @@ public class Transactions {
 	private String typeCD;
 	@Column(name="categoryCD")
 	private String categoryCD;
-	@Column(name="Source")
-	private String Source;
-	@Column(name="merchantId")
+	@Column(name="source")
+	private String source;
+	@Column(name="merchantID")
 	private String merchantId;
-	@Column(name="merhcantName")
-	private String merhcantName;
+	@Column(name="merchantName")
+	private String merchantName;
 	@Column(name="merchantCity")
 	private String merchantCity;
 	@Column(name="merchantZip")
@@ -57,15 +45,19 @@ public class Transactions {
 	@Column(name="originDate")
 	private Date originDate;
 	@Column(name="processingDate")
-	private Date processingDate;
-	@Column(name="Description")
+	private String processingDate;
+	@Column(name="description")
 	private String description;
 	@Column(name="updatedBy")
 	private int updatedBy;
 	@Column(name="updatedDate")
 	private String updatedDate;
-
-	
+	public Long getTransID() {
+		return transID;
+	}
+	public void setTransID(Long transID) {
+		this.transID = transID;
+	}
 	public String getTransactionId() {
 		return transactionId;
 	}
@@ -97,22 +89,16 @@ public class Transactions {
 		this.categoryCD = categoryCD;
 	}
 	public String getSource() {
-		return Source;
+		return source;
 	}
 	public void setSource(String source) {
-		Source = source;
+		this.source = source;
 	}
 	public String getMerchantId() {
 		return merchantId;
 	}
 	public void setMerchantId(String merchantId) {
 		this.merchantId = merchantId;
-	}
-	public String getMerhcantName() {
-		return merhcantName;
-	}
-	public void setMerhcantName(String merhcantName) {
-		this.merhcantName = merhcantName;
 	}
 	public String getMerchantCity() {
 		return merchantCity;
@@ -138,12 +124,6 @@ public class Transactions {
 	public void setOriginDate(Date originDate) {
 		this.originDate = originDate;
 	}
-	public Date getProcessingDate() {
-		return processingDate;
-	}
-	public void setProcessingDate(Date processingDate) {
-		this.processingDate = processingDate;
-	}
 	public String getDescription() {
 		return description;
 	}
@@ -162,17 +142,26 @@ public class Transactions {
 	public void setUpdatedDate(String updatedDate) {
 		this.updatedDate = updatedDate;
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
+	public String getMerchantName() {
+		return merchantName;
+	}
+	public void setMerchantName(String merchantName) {
+		this.merchantName = merchantName;
+	}
+	public String getProcessingDate() {
+		return processingDate;
+	}
+	public void setProcessingDate(String processingDate) {
+		this.processingDate = processingDate;
+	}
+	@Override
+	public String toString() {
+		return "Transactions [transID=" + transID + ", transactionId=" + transactionId + ", accountNumber="
+				+ accountNumber + ", creditCardNumber=" + creditCardNumber + ", typeCD=" + typeCD + ", categoryCD="
+				+ categoryCD + ", source=" + source + ", merchantId=" + merchantId + ", merchantName=" + merchantName
+				+ ", merchantCity=" + merchantCity + ", merchantZip=" + merchantZip + ", amount=" + amount
+				+ ", originDate=" + originDate + ", processingDate=" + processingDate + ", description=" + description
+				+ ", updatedBy=" + updatedBy + ", updatedDate=" + updatedDate + "]";
+	}
+	
 }

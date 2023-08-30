@@ -320,7 +320,7 @@ com.cg.CardDemoApplication.model
                               String userLastName = sessionUser.getLastName();
                           %>
                             <span class="fw-semibold d-block"><%=userFirstName%> <%=userLastName%></span>
-                            <small class="text-muted"><%=sessionUser.getRole()%></small>
+                            <small class="text-muted"> <span> Role:</span><%=sessionUser.getRole()%></small>
                           </div>
                         </div>
                       </a>
