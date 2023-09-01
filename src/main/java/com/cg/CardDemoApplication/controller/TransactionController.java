@@ -4,6 +4,7 @@ import java.util.List;
 
 
 import com.cg.CardDemoApplication.model.User;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -11,12 +12,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.cg.CardDemoApplication.model.AccountCustomerRecord;
 import com.cg.CardDemoApplication.model.Transactions;
-import com.cg.CardDemoApplication.model.User;
 import com.cg.CardDemoApplication.service.TransactionService;
 
 import jakarta.servlet.http.HttpSession;
@@ -85,9 +83,9 @@ public class TransactionController {
     		return "redirect:/login";
     	}
 
-	}
-	
-	 @RequestMapping(value = "find/{id}", method = RequestMethod.GET)
+	}		
+
+	@RequestMapping(value = "find/{id}", method = RequestMethod.GET)
      public Transactions findTransactionById(@PathVariable("id") int id){
      return service.findTransactionsById(id);
  }

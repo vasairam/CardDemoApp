@@ -258,11 +258,11 @@ com.cg.CardDemoApplication.model
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="#" class="menu-link">
+                  <a href="/transactionsReportDownload" class="menu-link">
                     <div data-i18n="Transactions">Transactions</div>
                   </a>
                 </li>
-                <li class="menu-item">
+                <!-- <li class="menu-item">
                   <a href="#" class="menu-link">
                     <div data-i18n="Bill Payments">Bill Payments</div>
                   </a>
@@ -271,7 +271,7 @@ com.cg.CardDemoApplication.model
                   <a href="#" class="menu-link">
                     <div data-i18n="Accounts">Accounts</div>
                   </a>
-                </li>
+                </li> -->
               </ul>
             </li>   				
 			
